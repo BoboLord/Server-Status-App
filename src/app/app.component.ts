@@ -29,8 +29,8 @@ export class AppComponent implements OnInit {
       this.getAllServerStats(this.servers);
     });
     const self = this;
-    setInterval(function() {
-      self.getAllServerStats(self.servers); }, 5000);
+    // setInterval(function() {
+    //   self.getAllServerStats(self.servers); }, 5000);
   }
   getAllServerStats(serverList) {
     // console.log(window.onblur);

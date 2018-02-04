@@ -46,14 +46,19 @@ pingServers = function(idArray){
         }
         var x = setInterval(function(){
             var passed = true;
-            for(var server of serverStatusArray){
-                if(server.status !== true && server.status !== false || serverStatusArray.length !== idArray.length){
-                    passed = false;
+            if(serverStatusArray.length === idArray.length){
+                for(var server of serverStatusArray){
+                    if(server.status===undefined){
+                        passed = false;
+                    }
                 }
+                if(passed===true){
+                    resolve(serverStatusArray);
+                    clearInterval(x);
+                }    
             }
-            if(passed===true){
-                resolve(serverStatusArray);
-                clearInterval(x);
+            else{
+                passed = false;
             }
         },50) 
     })
