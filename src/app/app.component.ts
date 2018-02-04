@@ -17,42 +17,49 @@ export class AppComponent implements OnInit {
   sortedServers = [];
   serverIDArray: ServerStatus[];
   interval1Cleared = false;
+  interval2Cleared = false;
   constructor(private appService: AppService) {}
 
   ngOnInit() {
     this.appService.getListOfClusters().then(response => {this.clusters = response.body; });
-    this.appService.getListOfServers().then(response => {this.servers = response.body; });
-    const self = this;
-    self.serverIDArray = [];
-    const interval1 = setInterval(function() {
-      if (self.servers && self.clusters) {
-        self.sortedServers = self.clusters;
-        for (const server of self.servers) {
-          for (const sortedServer of self.sortedServers) {
+    this.appService.getListOfServers().then(response => {this.servers = response.body;
+    this.serverIDArray = [];
+      if (this.servers && this.clusters) {
+        this.sortedServers = this.clusters;
+        for (const server of this.servers) {
+          for (const sortedServer of this.sortedServers) {
             if (server.clusterID === sortedServer.clusterID) {
               if (!sortedServer.servers) {
                 sortedServer['servers'] = [];
               }
               sortedServer.servers.push(server);
-              self.serverIDArray.push({'id' : server.id, 'status' : false});
+              this.serverIDArray.push({'id' : server.id, 'status' : false});
               break;
             }
           }
         }
-        console.log(self.sortedServers);
-        self.interval1Cleared = true;
-        clearInterval(interval1);
+        this.interval1Cleared = true;
       }
-    }, 50);
-    const interval2 = setInterval(function() {
-      if (self.interval1Cleared) {
-        const serverArray  = [];
-        for (const serverID of self.serverIDArray) {
-          serverArray.push(serverID.id);
+    const serverArray  = [];
+    for (const serverID of this.serverIDArray) {
+      serverArray.push(serverID.id);
+    }
+    this.appService.getServerListStatus(serverArray)
+    .then(response1 => {this.serverIDArray = response1.body;
+      this.interval2Cleared = true;
+      for (const cluster of this.sortedServers) {
+        if (cluster.servers) {
+          for (const server of cluster.servers) {
+            for (const serverID of this.serverIDArray) {
+              if (server.id === serverID.id) {
+                server.status = serverID.status;
+              }
+            }
+          }
         }
-        self.appService.getServerListStatus(serverArray).then(response => {self.serverIDArray = response.body; });
-        clearInterval(interval2);
       }
-    }, 50);
+    });
+  });
+
   }
 }

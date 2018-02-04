@@ -53,7 +53,6 @@ pingServers = function(idArray){
             }
             if(passed===true){
                 resolve(serverStatusArray);
-                console.log(serverStatusArray)
                 clearInterval(x);
             }
         },50) 
