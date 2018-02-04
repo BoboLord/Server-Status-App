@@ -26,7 +26,6 @@ function pingServer(id){
                             resolve(false)
                         }
                     });
-    
                 }
                 return;
             }
