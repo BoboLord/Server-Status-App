@@ -1,6 +1,6 @@
-<div *ngFor="let cluster of this.sortedServers">
+<div class="cluster" *ngFor="let cluster of this.sortedServers">
   <h1>{{cluster.clusterName}}</h1>
-  <table class="cluster table-striped table-bordered"*ngIf="cluster.servers && cluster.servers.length!==0">
+  <table class=" table-striped table-bordered"*ngIf="cluster.servers && cluster.servers.length!==0">
     <tr>
       <th>Server Name</th>
       <th>Host</th>
