@@ -21,31 +21,44 @@ export class AppComponent implements OnInit {
   constructor(private appService: AppService) {}
 
   ngOnInit() {
-    this.appService.getListOfClusters().then(response => {this.clusters = response.body; });
-    this.appService.getListOfServers().then(response => {this.servers = response.body;
+    this.appService.getListOfClusters().then(response => {
+      this.clusters = response.body;
+    });
+    this.appService.getListOfServers().then(response => {
+      this.servers = response.body;
+      this.getAllServerStats(this.servers);
+    });
+    const self = this;
+    setInterval(function() {
+      self.getAllServerStats(self.servers); }, 5000);
+  }
+  getAllServerStats(serverList) {
     this.serverIDArray = [];
-      if (this.servers && this.clusters) {
-        this.sortedServers = this.clusters;
-        for (const server of this.servers) {
-          for (const sortedServer of this.sortedServers) {
-            if (server.clusterID === sortedServer.clusterID) {
-              if (!sortedServer.servers) {
-                sortedServer['servers'] = [];
-              }
-              sortedServer.servers.push(server);
-              this.serverIDArray.push({'id' : server.id, 'status' : false});
-              break;
+    for(const sortedServer of this.sortedServers) {
+      sortedServer['servers'] = [];
+    }
+    if (this.servers && this.clusters) {
+      this.sortedServers = this.clusters;
+      for (const server of this.servers) {
+        for (const sortedServer of this.sortedServers) {
+          if (server.clusterID === sortedServer.clusterID) {
+            if (!sortedServer.servers) {
+              sortedServer['servers'] = [];
             }
+            sortedServer.servers.push(server);
+            this.serverIDArray.push({ id: server.id, status: false });
+            break;
           }
         }
-        this.interval1Cleared = true;
       }
-    const serverArray  = [];
+      this.interval1Cleared = true;
+    }
+    const serverArray = [];
     for (const serverID of this.serverIDArray) {
       serverArray.push(serverID.id);
     }
-    this.appService.getServerListStatus(serverArray)
-    .then(response1 => {this.serverIDArray = response1.body;
+    this.appService.getServerListStatus(serverArray).then(response1 => {
+      this.serverIDArray = response1.body;
       this.interval2Cleared = true;
       for (const cluster of this.sortedServers) {
         if (cluster.servers) {
@@ -59,7 +72,6 @@ export class AppComponent implements OnInit {
         }
       }
     });
-  });
 
   }
 }
