@@ -1,7 +1,17 @@
 <div *ngFor="let cluster of this.sortedServers">
-    <h1>{{cluster.clusterName}}</h1>
-    <div *ngFor="let server of cluster.servers">
-        <p>{{server.name}}</p>
-        <p>{{server.status}}</p>        
-    </div>    
+  <h1>{{cluster.clusterName}}</h1>
+  <table *ngIf="cluster.servers">
+    <tr>
+      <th>Server Name</th>
+      <th>Host</th>
+      <th>Port</th>
+      <th>Status</th>
+    </tr>
+    <tr *ngFor="let server of cluster.servers">
+      <td>{{server.name}}</td>
+      <td>{{server.host}}</td>
+      <td class="port">{{server.port? server.port : '-'}}</td>
+      <td>{{server.status}}</td>
+    </tr>
+  </table>
 </div>
