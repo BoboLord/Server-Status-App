@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 // import { HttpService } from './http.service';
 import { Server } from '../models/server';
+import { ServerStatus } from '../models/server-status';
 import { Cluster } from '../models/cluster';
 
 @Injectable()
@@ -10,26 +11,41 @@ export class AppService {
 
     constructor(private httpClient: HttpClient) {}
 
-    // getListOfClusters() {
-    //     // return this.httpService.request('/clusterlist');
-    //     return this.httpClient.get(this.baseURL + '/clusterlist')
-    //     .map((res: Response) => res.json());
-    // }
-
-
     getListOfClusters(): Promise<HttpResponse<Cluster[]>> {
-    return this.httpClient.get<Cluster[]>(
-      this.baseURL + '/clusterlist',
-      { observe: 'response' }
-      ).toPromise();
-    }
+      return this.httpClient.get<Cluster[]>(
+        this.baseURL + '/clusterlist',
+        { observe: 'response' }
+        ).toPromise();
+      }
 
+    getListOfServers(): Promise<HttpResponse<Server[]>> {
+      return this.httpClient.get<Server[]>(
+        this.baseURL + '/serverlist',
+        { observe: 'response' }
+        ).toPromise();
+      }
 
-    // getListOfServers(); {
-    //     return this.http.get<Server[]>(this.baseURL + 'serverlist');
-    // }
+    getCustomServerStatus(serverHost): Promise<HttpResponse<ServerStatus[]>> {
+      return this.httpClient.get<ServerStatus[]>(
+        this.baseURL + '/serverstatus/' +
+        serverHost,
+        { observe: 'response' }
+        ).toPromise();
+      }
+    getServerStatus(serverID): Promise<HttpResponse<ServerStatus[]>> {
+      return this.httpClient.get<ServerStatus[]>(
+        this.baseURL + '/serverstatus/' +
+        serverID,
+        { observe: 'response' }
+        ).toPromise();
+      }
 
-    // pingSingleWebsite(id: number); {
-    //     return this.http.get<boolean>(this.baseURL + 'pingsinglewebsite/' + id);
-    // }
+    getServerListStatus(serverList): Promise<HttpResponse<ServerStatus[]>> {
+      return this.httpClient.post<ServerStatus[]>(
+        this.baseURL + '/serverliststatus',
+        serverList,
+        { observe: 'response' }
+        ).toPromise();
+      }
+
 }

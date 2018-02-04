@@ -1,2 +1,7 @@
-<p>{{this.clusters}}</p>
-<p>{{this.servers}}</p>
+<div *ngFor="let cluster of this.sortedServers">
+    <h1>{{cluster.clusterName}}</h1>
+    <div *ngFor="let server of cluster.servers">
+        <p>{{server.name}}</p>
+        <p>{{server.status}}</p>        
+    </div>    
+</div>

@@ -35,4 +35,29 @@ function pingServer(id){
     })
 }
 
+pingServers = function(idArray){
+    return new Promise(function(resolve, reject) {
+        var serverStatusArray = [];
+        for(let id of idArray){
+            pingServer(id).then(status => serverStatusArray.push({'id':id,'status':status}))
+            .catch(function(error){
+              res.send('Website was not found in the database');
+            })
+        }
+        var x = setInterval(function(){
+            var passed = true;
+            for(var server of serverStatusArray){
+                if(server.status !== true && server.status !== false || serverStatusArray.length !== idArray.length){
+                    passed = false;
+                }
+            }
+            if(passed===true){
+                resolve(serverStatusArray);
+                console.log(serverStatusArray)
+                clearInterval(x);
+            }
+        },50) 
+    })
+}
 exports.pingServer = pingServer;
+exports.pingServers = pingServers;
