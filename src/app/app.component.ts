@@ -8,7 +8,7 @@ import { ServerStatus } from './models/server-status';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   title = 'app';
@@ -33,8 +33,9 @@ export class AppComponent implements OnInit {
       self.getAllServerStats(self.servers); }, 5000);
   }
   getAllServerStats(serverList) {
+    // console.log(window.onblur);
     this.serverIDArray = [];
-    for(const sortedServer of this.sortedServers) {
+    for (const sortedServer of this.sortedServers) {
       sortedServer['servers'] = [];
     }
     if (this.servers && this.clusters) {
