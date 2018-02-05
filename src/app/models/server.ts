@@ -4,4 +4,5 @@ export interface Server {
     name: string;
     host: string;
     port: number;
+    url: string;
 }

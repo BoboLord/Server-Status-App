@@ -9,7 +9,7 @@
       <th>Action</th>
     </tr>
     <tr *ngFor="let server of cluster.servers">
-      <td>{{server.name}}</td>
+      <td><a target="_blank" [href]=server.url>{{server.name}}</a></td>
       <td>{{server.host}}</td>
       <td class="port">{{server.port? server.port : '-'}}</td>
       <td>{{server.status ? 'Up' : 'Down'}}</td>
