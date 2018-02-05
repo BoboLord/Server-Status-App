@@ -42,9 +42,9 @@ export class ServerStatusComponent implements OnInit {
       this.sortedServers = this.clusters;
       for (const server of this.servers) {
         if (server.port) {
-          server.url = server.host + ':' + server.port;
+          server.url = 'http://' + server.host + ':' + server.port;
         } else {
-          server.url = server.host;
+          server.url = 'http://' + server.host;
         }
         for (const sortedServer of this.sortedServers) {
           if (server.clusterID === sortedServer.clusterID) {
