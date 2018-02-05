@@ -40,7 +40,7 @@ pingServers = function(idArray){
         for(let id of idArray){
             pingServer(id).then(status => serverStatusArray.push({'id':id,'status':status}))
             .catch(function(error){
-              res.send('Website was not found in the database');
+                serverStatusArray.push({'id':id,'status':false});
             })
         }
         var x = setInterval(function(){
