@@ -6,24 +6,31 @@
   <div class="rect5"></div>
 </div>
 <div *ngIf="infoLoaded">
-    <div class="cluster" *ngFor="let cluster of this.sortedServers">
-        <h1>{{cluster.clusterName}}</h1>
-        <table class=" table-striped table-bordered" *ngIf="cluster.servers && cluster.servers.length!==0">
-          <tr>
-            <th>Server Name</th>
-            <th>Host</th>
-            <th>Port</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-          <tr *ngFor="let server of cluster.servers">
-            <td><a target="_blank" [href]=server.url>{{server.name}}</a></td>
-            <td>{{server.host}}</td>
-            <td class="port">{{server.port? server.port : '-'}}</td>
-            <td *ngIf="server.status"><img class="checked" src="/assets/checked.svg"></td>
-            <td *ngIf="!server.status"><img class="cancel" src="/assets/cancel.svg"></td>
-            <td>Restart</td>
-          </tr>
-        </table>
-      </div>      
+  <div class="cluster" *ngFor="let cluster of this.sortedServers">
+    <h1>{{cluster.clusterName}}</h1>
+    <table class=" table-striped table-bordered" *ngIf="cluster.servers && cluster.servers.length!==0">
+      <tr>
+        <th>Server Name</th>
+        <th>Host</th>
+        <th>Port</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      <tr *ngFor="let server of cluster.servers">
+        <td>
+          <a target="_blank" [href]=server.url>{{server.name}}</a>
+        </td>
+        <td>{{server.host}}</td>
+        <td class="port">{{server.port? server.port : '-'}}</td>
+        <td>
+          <img *ngIf="server.status" class="checked" src="/assets/checked.svg">
+          <img *ngIf="!server.status" class="cancel" src="/assets/cancel.svg">
+        </td>
+        <td>
+          <img *ngIf="server.status" class="refresh" src="/assets/refresh.svg">
+          <img *ngIf="!server.status" class="play" src="/assets/play.svg">
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
