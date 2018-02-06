@@ -1,4 +1,8 @@
-var tcpp = require('tcp-ping');
+var ping = require('ping');
+var cfg = {
+    timeout: 1
+};
+
 var dataService = require('./dataService.js');
 var Promise = require('promise');
 
@@ -7,30 +11,23 @@ function pingServer(id){
         for(let server of dataService.servers){    
             if(server.id == id){
                 if(server.port){
-                    tcpp.ping({ address: server.host,port: server.port }, function(err, data) {
-                        if (data.avg){
-                            resolve(true)
-                        }
-                        else {
-                            resolve(false)
-                        }
-                    });
-    
+                    server.url = server.host + ':' + server.port;
                 }
-                else {
-                    tcpp.ping({ address: server.host }, function(err, data) {
-                        if (data.avg){
-                            resolve(true)
-                        }
-                        else {
-                            resolve(false)
-                        }
-                    });
+                else{
+                    server.url = server.host;
                 }
-                return;
+                ping.sys.probe(server.host, function(isAlive){
+                    if(isAlive){
+                        console.log('aa true')
+                        resolve(true);
+                    } else{
+                        console.log('aa false')
+                        resolve(false);
+                    }
+                }, cfg);
+                break;
             }
         }
-        reject(err)
     })
 }
 
@@ -38,9 +35,12 @@ pingServers = function(idArray){
     return new Promise(function(resolve, reject) {
         var serverStatusArray = [];
         for(let id of idArray){
-            pingServer(id).then(status => serverStatusArray.push({'id':id,'status':status}))
+            pingServer(id)
+            .then(status =>
+                serverStatusArray.push({'id':id,'status':status})
+            )
             .catch(function(error){
-                serverStatusArray.push({'id':id,'status':false});
+                serverStatusArray.push({'id':id,'status':false})
             })
         }
         var x = setInterval(function(){
