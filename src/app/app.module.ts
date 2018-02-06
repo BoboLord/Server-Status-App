@@ -17,7 +17,7 @@ import { appRoutes } from './utilities/app-routing';
   imports: [BrowserModule, HttpClientModule, InlineSVGModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: false } // <-- debugging purposes only
+      { enableTracing: false, onSameUrlNavigation: 'reload'} // <-- debugging purposes only
     )
   ],
   providers: [HttpClient, AppService],
