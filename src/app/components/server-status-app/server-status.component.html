@@ -17,10 +17,10 @@
         <th>Action</th>
       </tr>
       <tr *ngFor="let server of cluster.servers">
-        <td>
+        <td class="host">
           <a target="_blank" [href]=server.url>{{server.name}}</a>
         </td>
-        <td>{{server.host}}</td>
+        <td class="host">{{server.host}}</td>
         <td class="port">{{server.port? server.port : '-'}}</td>
         <td>
           <img *ngIf="server.status" class="checked" src="/assets/checked.svg">

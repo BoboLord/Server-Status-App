@@ -85,6 +85,9 @@
     tr{
       max-width: 40px;
       height: 50px;
+      .host{
+        width: 30%;
+      }
       th, td{
         padding-left: 10px;
         padding-right: 10px;
