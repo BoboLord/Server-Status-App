@@ -7,45 +7,45 @@ import { Cluster } from '../models/cluster';
 
 @Injectable()
 export class AppService {
-    baseURL = 'http://localhost:3000/api';
+  baseURL = 'http://localhost:5000/api';
 
-    constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-    getListOfClusters(): Promise<HttpResponse<Cluster[]>> {
-      return this.httpClient.get<Cluster[]>(
-        this.baseURL + '/clusterlist',
-        { observe: 'response' }
-        ).toPromise();
-      }
+  getListOfClusters(): Promise<HttpResponse<Cluster[]>> {
+    return this.httpClient.get<Cluster[]>(
+      this.baseURL + '/clusterlist',
+      { observe: 'response' }
+    ).toPromise();
+  }
 
-    getListOfServers(): Promise<HttpResponse<Server[]>> {
-      return this.httpClient.get<Server[]>(
-        this.baseURL + '/serverlist',
-        { observe: 'response' }
-        ).toPromise();
-      }
+  getListOfServers(): Promise<HttpResponse<Server[]>> {
+    return this.httpClient.get<Server[]>(
+      this.baseURL + '/serverlist',
+      { observe: 'response' }
+    ).toPromise();
+  }
 
-    getCustomServerStatus(serverHost): Promise<HttpResponse<ServerStatus[]>> {
-      return this.httpClient.get<ServerStatus[]>(
-        this.baseURL + '/serverstatus/' +
-        serverHost,
-        { observe: 'response' }
-        ).toPromise();
-      }
-    getServerStatus(serverID): Promise<HttpResponse<ServerStatus[]>> {
-      return this.httpClient.get<ServerStatus[]>(
-        this.baseURL + '/serverstatus/' +
-        serverID,
-        { observe: 'response' }
-        ).toPromise();
-      }
+  getCustomServerStatus(serverHost): Promise<HttpResponse<ServerStatus[]>> {
+    return this.httpClient.get<ServerStatus[]>(
+      this.baseURL + '/serverstatus/' +
+      serverHost,
+      { observe: 'response' }
+    ).toPromise();
+  }
+  getServerStatus(serverID): Promise<HttpResponse<ServerStatus[]>> {
+    return this.httpClient.get<ServerStatus[]>(
+      this.baseURL + '/serverstatus/' +
+      serverID,
+      { observe: 'response' }
+    ).toPromise();
+  }
 
-    getServerListStatus(serverList): Promise<HttpResponse<ServerStatus[]>> {
-      return this.httpClient.post<ServerStatus[]>(
-        this.baseURL + '/serverliststatus',
-        serverList,
-        { observe: 'response' }
-        ).toPromise();
-      }
+  getServerListStatus(serverList): Promise<HttpResponse<ServerStatus[]>> {
+    return this.httpClient.post<ServerStatus[]>(
+      this.baseURL + '/serverliststatus',
+      serverList,
+      { observe: 'response' }
+    ).toPromise();
+  }
 
 }

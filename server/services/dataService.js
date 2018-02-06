@@ -1,7 +1,7 @@
-var clusters = [{"clusterID":0, "clusterName":"Development"},
-                {"clusterID":1, "clusterName":"Testing"},
-                {"clusterID":2, "clusterName":"Miscelleneous"},
-                ];
+var clusters = [{ "clusterID": 0, "clusterName": "Development" },
+{ "clusterID": 1, "clusterName": "Testing" },
+{ "clusterID": 2, "clusterName": "Miscelleneous" },
+];
 var servers = [];
 
 servers.push({"id":0,"clusterID":0,"name":"OAS Test","host":"10.206.0.80","port":8090});
