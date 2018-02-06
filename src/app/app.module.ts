@@ -9,10 +9,12 @@ import { ServerStatusComponent } from './components/server-status-app/server-sta
 import { HttpModule } from '@angular/http/src/http_module';
 
 import { RouterModule } from '@angular/router';
+import { InlineSVGModule } from 'ng-inline-svg';
+
 import { appRoutes } from './utilities/app-routing';
 @NgModule({
   declarations: [AppComponent, NavbarComponent, ServerStatusComponent],
-  imports: [BrowserModule, HttpClientModule,
+  imports: [BrowserModule, HttpClientModule, InlineSVGModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only

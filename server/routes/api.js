@@ -33,7 +33,7 @@ router.post('/serverliststatus', function(req, res) {
   defaultService.pingServers(req.body)
   .then(data => res.send(data))
   .catch(function(error){
-    res.send('Website was not found in the database');
+    res.send('There was an issue pinging the websites');
   });
 });
 

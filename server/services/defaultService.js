@@ -1,6 +1,7 @@
 var ping = require('ping');
 var cfg = {
-    timeout: 1
+    timeout: 1,
+    min_reply: 1
 };
 
 var dataService = require('./dataService.js');
@@ -18,10 +19,8 @@ function pingServer(id){
                 }
                 ping.sys.probe(server.host, function(isAlive){
                     if(isAlive){
-                        console.log('aa true')
                         resolve(true);
                     } else{
-                        console.log('aa false')
                         resolve(false);
                     }
                 }, cfg);

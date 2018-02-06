@@ -3,6 +3,7 @@ import { Cluster } from '../../models/cluster';
 import { Server } from '../../models/server';
 import { AppService } from '../../services/app.service';
 import { ServerStatus } from '../../models/server-status';
+import { resolve } from 'q';
 
 // import { clearInterval } from 'timers';
 @Component({
@@ -18,9 +19,11 @@ export class ServerStatusComponent implements OnInit {
   serverIDArray: ServerStatus[];
   interval1Cleared = false;
   interval2Cleared = false;
+  infoLoaded = false;
   constructor(private appService: AppService) {}
 
   ngOnInit() {
+    console.log('page loaded');
     this.appService.getListOfClusters().then(response => {
       this.clusters = response.body;
     });
@@ -77,6 +80,8 @@ export class ServerStatusComponent implements OnInit {
           }
         }
       }
+      this.infoLoaded = true;
+      console.log('server info loaded');
     });
 
   }
