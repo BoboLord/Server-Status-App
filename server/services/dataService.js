@@ -1,6 +1,6 @@
 var clusters = [{ "clusterID": 0, "clusterName": "Development" },
 { "clusterID": 1, "clusterName": "Testing" },
-{ "clusterID": 2, "clusterName": "Miscelleneous" },
+{ "clusterID": 2, "clusterName": "Miscellaneous" },
 ];
 var servers = [];
 

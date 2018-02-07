@@ -1,11 +1,15 @@
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" routerLink="/server-status">Obsidian Server</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li class="active"><a routerLink="/server-status">Server Status</a></li>
-        <li><a routerLinkActive="active">Dummy</a></li>
-      </ul> 
-    </div>  
-  </nav>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/server-status">Obsidian Server</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li [routerLinkActive]="['active']">
+        <a routerLink="/server-status">Server Status</a>
+      </li>
+      <li [routerLinkActive]="['active']">
+        <a routerLink="/ping-tool">Ping Tool</a>
+      </li>
+    </ul>
+  </div>
+</nav>
