@@ -4,7 +4,7 @@ import { ServerStatusComponent } from '../components/server-status-app/server-st
 import { PingToolComponent } from '../components/ping-tool/ping-tool.component';
 
 export const appRoutes: Routes = [
-  { path: 'server-status', component: ServerStatusComponent },
+  { path: '', component: ServerStatusComponent },
   { path: 'ping-tool', component: PingToolComponent },
   { path: '**', component: ServerStatusComponent }
 ];

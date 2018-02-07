@@ -1,11 +1,11 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/server-status">Obsidian Server</a>
+      <a class="navbar-brand" routerLink="/">Obsidian Server</a>
     </div>
     <ul class="nav navbar-nav">
-      <li [routerLinkActive]="['active']">
-        <a routerLink="/server-status">Server Status</a>
+      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="/">Server Status</a>
       </li>
       <li [routerLinkActive]="['active']">
         <a routerLink="/ping-tool">Ping Tool</a>
