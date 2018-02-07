@@ -11,13 +11,6 @@ function pingServer(id) {
     return new Promise(function (resolve, reject) {
         for (let server of dataService.servers) {
             if (server.id == id) {
-                if (server.port) {
-                    server.url = server.host + ':' + server.port;
-                }
-                else {
-                    server.url = server.host;
-                    server.port = 80;
-                }
                 var promise1 = new Promise(function(resolve, reject) {
                     setTimeout(function(){
                         resolve(false);
@@ -25,13 +18,24 @@ function pingServer(id) {
                 });
                 
                 var promise2 = new Promise(function(resolve, reject){
-                    ping.ping({ address: server.host, port: server.port }, function (data) {
-                        if (data[0].avg) {
-                            resolve(true);
-                        } else {
-                            resolve(false);
+                    if(server.port){
+                        ping.ping({ address: server.host, port: server.port }, function (data) {
+                            if (data[0].avg) {
+                                resolve(true);
+                            } else {
+                                resolve(false);
+                            }
+                        }, cfg)
                         }
-                    }, cfg)
+                    else{
+                        ping.ping({ address: server.host }, function (data) {
+                            if (data[0].avg) {
+                                resolve(true);
+                            } else {
+                                resolve(false);
+                            }
+                        }, cfg)
+                        }
                 });
 
                 var promise = Promise.race([promise1, promise2]).then(function(value) {
