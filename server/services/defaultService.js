@@ -1,4 +1,4 @@
-var ping = require('ping');
+var ping = require('ping-net');
 var cfg = {
     timeout: 1,
     min_reply: 1
@@ -7,20 +7,21 @@ var cfg = {
 var dataService = require('./dataService.js');
 var Promise = require('promise');
 
-function pingServer(id){
-    return new Promise(function(resolve, reject) {
-        for(let server of dataService.servers){    
-            if(server.id == id){
-                if(server.port){
+function pingServer(id) {
+    return new Promise(function (resolve, reject) {
+        for (let server of dataService.servers) {
+            if (server.id == id) {
+                if (server.port) {
                     server.url = server.host + ':' + server.port;
                 }
-                else{
+                else {
                     server.url = server.host;
+                    server.port = 80;
                 }
-                ping.sys.probe(server.host, function(isAlive){
-                    if(isAlive){
+                ping.ping({ address: server.host, port: server.port }, function (data) {
+                    if (data[0].avg) {
                         resolve(true);
-                    } else{
+                    } else {
                         resolve(false);
                     }
                 }, cfg);
@@ -30,35 +31,35 @@ function pingServer(id){
     })
 }
 
-pingServers = function(idArray){
-    return new Promise(function(resolve, reject) {
+pingServers = function (idArray) {
+    return new Promise(function (resolve, reject) {
         var serverStatusArray = [];
-        for(let id of idArray){
+        for (let id of idArray) {
             pingServer(id)
-            .then(status =>
-                serverStatusArray.push({'id':id,'status':status})
-            )
-            .catch(function(error){
-                serverStatusArray.push({'id':id,'status':false})
-            })
+                .then(status =>
+                    serverStatusArray.push({ 'id': id, 'status': status })
+                )
+                .catch(function (error) {
+                    serverStatusArray.push({ 'id': id, 'status': false })
+                })
         }
-        var x = setInterval(function(){
+        var x = setInterval(function () {
             var passed = true;
-            if(serverStatusArray.length === idArray.length){
-                for(var server of serverStatusArray){
-                    if(server.status===undefined){
+            if (serverStatusArray.length === idArray.length) {
+                for (var server of serverStatusArray) {
+                    if (server.status === undefined) {
                         passed = false;
                     }
                 }
-                if(passed===true){
+                if (passed === true) {
                     resolve(serverStatusArray);
                     clearInterval(x);
-                }    
+                }
             }
-            else{
+            else {
                 passed = false;
             }
-        },50) 
+        }, 50)
     })
 }
 exports.pingServer = pingServer;
