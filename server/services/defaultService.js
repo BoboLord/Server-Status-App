@@ -18,13 +18,29 @@ function pingServer(id) {
                     server.url = server.host;
                     server.port = 80;
                 }
-                ping.ping({ address: server.host, port: server.port }, function (data) {
-                    if (data[0].avg) {
-                        resolve(true);
-                    } else {
+                var promise1 = new Promise(function(resolve, reject) {
+                    setTimeout(function(){
                         resolve(false);
-                    }
-                }, cfg);
+                     }, 1000);
+                });
+                
+                var promise2 = new Promise(function(resolve, reject){
+                    ping.ping({ address: server.host, port: server.port }, function (data) {
+                        if (data[0].avg) {
+                            resolve(true);
+                        } else {
+                            resolve(false);
+                        }
+                    }, cfg)
+                });
+
+                var promise = Promise.race([promise1, promise2]).then(function(value) {
+                    resolve(value)
+                  }).catch(function(err){
+                    console.log('err')
+                });
+                  
+                
                 break;
             }
         }
@@ -32,7 +48,8 @@ function pingServer(id) {
 }
 
 pingServers = function (idArray) {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {                            //return false;
+
         var serverStatusArray = [];
         for (let id of idArray) {
             pingServer(id)
