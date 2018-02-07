@@ -41,11 +41,8 @@ function pingServer(id) {
                 var promise = Promise.race([promise1, promise2]).then(function(value) {
                     resolve(value)
                   }).catch(function(err){
-                    console.log('err')
+                    console.log('error',err)
                 });
-                  
-                
-                break;
             }
         }
     })
