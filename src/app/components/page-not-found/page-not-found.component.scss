@@ -1,3 +1,18 @@
 .error{
     max-width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+div{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top:0;
+    bottom: 200px;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+
 }
