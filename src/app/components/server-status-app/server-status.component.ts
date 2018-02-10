@@ -27,21 +27,21 @@ export class ServerStatusComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.infoLoaded = false;
-        this.appService.getListOfClusters().then(response => {
-          this.clusters = response.body;
-        });
-        this.appService.getListOfServers().then(response => {
-          this.servers = response.body;
-          this.getAllServerStats(this.servers);
+        this.appService.getListOfClusters().then(response1 => {
+          this.clusters = response1.body;
+          this.appService.getListOfServers().then(response2 => {
+            this.servers = response2.body;
+            this.getAllServerStats(this.servers);
+          });
         });
       }
     });
-    this.appService.getListOfClusters().then(response => {
-      this.clusters = response.body;
-    });
-    this.appService.getListOfServers().then(response => {
-      this.servers = response.body;
-      this.getAllServerStats(this.servers);
+    this.appService.getListOfClusters().then(response1 => {
+      this.clusters = response1.body;
+      this.appService.getListOfServers().then(response2 => {
+        this.servers = response2.body;
+        this.getAllServerStats(this.servers);
+      });
     });
     const self = this;
   }
