@@ -46,7 +46,6 @@ export class ServerStatusComponent implements OnInit {
     const self = this;
   }
   getAllServerStats(serverList) {
-    // console.log(window.onblur);
     this.infoLoaded = false;
     this.serverIDArray = [];
     for (const sortedServer of this.sortedServers) {
@@ -92,6 +91,7 @@ export class ServerStatusComponent implements OnInit {
         }
       }
       this.infoLoaded = true;
+      console.log(this.infoLoaded);
     });
 
   }
