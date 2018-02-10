@@ -47,6 +47,7 @@ export class ServerStatusComponent implements OnInit {
   }
   getAllServerStats(serverList) {
     // console.log(window.onblur);
+    this.infoLoaded = false;
     this.serverIDArray = [];
     for (const sortedServer of this.sortedServers) {
       sortedServer['servers'] = [];
