@@ -5,7 +5,7 @@
   <div class="rect4"></div>
   <div class="rect5"></div>
 </div>
-<div *ngIf="infoLoaded">
+<div *ngIf="infoLoaded===true">
   <div class="cluster" *ngFor="let cluster of this.sortedServers">
     <h2>{{cluster.clusterName}}</h2>
     <table class=" table-striped table-bordered" *ngIf="cluster.servers && cluster.servers.length!==0">
