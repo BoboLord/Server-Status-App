@@ -5,7 +5,7 @@
   <div class="rect4"></div>
   <div class="rect5"></div>
 </div>
-<div *ngIf="infoLoaded">
+<div *ngIf="infoLoaded===true">
   <div class="cluster" *ngFor="let cluster of this.sortedServers">
     <h2>{{cluster.clusterName}}</h2>
     <table class=" table-striped table-bordered" *ngIf="cluster.servers && cluster.servers.length!==0">
@@ -18,19 +18,26 @@
       </tr>
       <tr *ngFor="let server of cluster.servers">
         <td class="host">
-          <a target="_blank" [href]=server.url>{{server.name}}</a>
+          <a target="_blank" [href]=server.url data-toggle="tooltip" title="Open in a new tab" >{{server.name}}</a>
         </td>
         <td class="host">{{server.host}}</td>
         <td class="port">{{server.port? server.port : '-'}}</td>
         <td>
-          <img *ngIf="server.status" class="checked" src="/assets/checked.svg">
-          <img *ngIf="!server.status" class="cancel" src="/assets/cancel.svg">
+          <img *ngIf="server.status" data-toggle="tooltip" title="Server is up" class="checked" src="/assets/checked.svg">
+          <img *ngIf="!server.status" data-toggle="tooltip" title="Server is down" class="cancel" src="/assets/cancel.svg">
         </td>
         <td>
-          <img *ngIf="server.status" class="refresh" src="/assets/refresh.svg">
-          <img *ngIf="!server.status" class="play" src="/assets/play.svg">
+          <img *ngIf="server.status" data-toggle="tooltip" title="Restart server" class="refresh" src="/assets/refresh.svg">
+          <img *ngIf="!server.status" class="play" data-toggle="tooltip" title="Start server" src="/assets/play.svg">
         </td>
       </tr>
     </table>
   </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip(); 
+  });
+  </script>
+  
