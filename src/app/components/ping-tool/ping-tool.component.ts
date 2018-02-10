@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { Cluster } from '../../models/cluster';
 import { Server } from '../../models/server';
 import { AppService } from '../../services/app.service';
 import { ServerStatus } from '../../models/server-status';
-import { resolve } from 'q';
+
 
 // import { clearInterval } from 'timers';
 @Component({
@@ -20,23 +21,32 @@ export class PingToolComponent implements OnInit {
   interval1Cleared = false;
   interval2Cleared = false;
   infoLoaded = false;
-  constructor(private appService: AppService) {}
+  constructor(private appService: AppService, private router: Router) {}
 
   ngOnInit() {
-    console.log('page loaded');
-    this.appService.getListOfClusters().then(response => {
-      this.clusters = response.body;
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.infoLoaded = false;
+        this.appService.getListOfClusters().then(response1 => {
+          this.clusters = response1.body;
+          this.appService.getListOfServers().then(response2 => {
+            this.servers = response2.body;
+            this.getAllServerStats(this.servers);
+          });
+        });
+      }
     });
-    this.appService.getListOfServers().then(response => {
-      this.servers = response.body;
-      this.getAllServerStats(this.servers);
+    this.appService.getListOfClusters().then(response1 => {
+      this.clusters = response1.body;
+      this.appService.getListOfServers().then(response2 => {
+        this.servers = response2.body;
+        this.getAllServerStats(this.servers);
+      });
     });
     const self = this;
-    // setInterval(function() {
-    //   self.getAllServerStats(self.servers); }, 5000);
   }
   getAllServerStats(serverList) {
-    // console.log(window.onblur);
+    this.infoLoaded = false;
     this.serverIDArray = [];
     for (const sortedServer of this.sortedServers) {
       sortedServer['servers'] = [];
@@ -81,8 +91,6 @@ export class PingToolComponent implements OnInit {
         }
       }
       this.infoLoaded = true;
-      console.log('server info loaded');
     });
-
   }
 }

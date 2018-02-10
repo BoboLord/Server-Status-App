@@ -4,7 +4,6 @@ import { Cluster } from '../../models/cluster';
 import { Server } from '../../models/server';
 import { AppService } from '../../services/app.service';
 import { ServerStatus } from '../../models/server-status';
-import { resolve } from 'q';
 
 // import { clearInterval } from 'timers';
 @Component({
@@ -91,8 +90,6 @@ export class ServerStatusComponent implements OnInit {
         }
       }
       this.infoLoaded = true;
-      console.log(this.infoLoaded);
     });
-
   }
 }
