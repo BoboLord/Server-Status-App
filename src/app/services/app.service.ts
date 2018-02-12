@@ -7,7 +7,7 @@ import { Cluster } from '../models/cluster';
 
 @Injectable()
 export class AppService {
-  baseURL = 'http://35.200.180.139:5000/api';
+  baseURL = 'http://localhost:5000/api';
 
   constructor(private httpClient: HttpClient) { }
 
