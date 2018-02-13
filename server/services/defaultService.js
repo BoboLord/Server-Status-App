@@ -4,21 +4,12 @@ var Promise = require('promise');
 
 pingServer = function (id) {
     return new Promise(function (resolve, reject) {
-        console.log("hola")
-
         for (let server of dataService.servers) {
             if (server.id == id) {
                 if(!server.port){
                     server.port=80;
                 }
-                  //  console.log("hola")
-                    pingService.ping(server.port,{ host: server.host }).then(data =>
-                        //console.log(data),
-                        console.log("WAs"),
-                        resolve(data),
-                        console.log(data)
-                  )
-                //   .catch(()=>console.log('error',err));
+                resolve(pingService.ping(server.port,{ host: server.host }))
             }
         }
     })
@@ -27,18 +18,28 @@ pingServer = function (id) {
 pingServers = function (idArray) {
     return new Promise(function (resolve, reject) {                            //return false;
         var serverStatusArray = [];
-        for(id of idArray){
-            pingServer(id).then(status=>
-                resolve(status),
-                console.log("1",status),
-                serverStatusArray.push({ 'id': id, 'status': status }),
-            )
-        }
+        var a = [];
+        for (let i = 0; i < idArray.length; i++) {
+            var id = idArray[i];
+            var status = new Promise((resolve, reject) => {
+                resolve(pingServer(idArray[i]))
+            })
+            serverStatusArray.push(status)
             
-            // .catch(err=> console.log("err"))
-        // var gg = resolve(promises)
-        // console.log("hello",gg)
-
+        }
+        return Promise.all(serverStatusArray)
+        .then(values => {
+            resolve(values)
+        })
+        .catch(function(error){
+            console.log("error",error)
+            })
+    }).then(values => {
+        var serverStatusMap = [];
+        for (let i = 0; i < idArray.length; i++) {
+            serverStatusMap.push({'id':idArray[i],'status':values[i]})
+        }
+        return serverStatusMap;
     })
 }
 
