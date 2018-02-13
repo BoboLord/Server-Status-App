@@ -33,6 +33,7 @@ router.post('/serverliststatus', function(req, res) {
   defaultService.pingServers(req.body)
   .then(data => res.send(data))
   .catch(function(error){
+    console.log(error)
     res.send('There was an issue pinging the websites');
   });
 });
