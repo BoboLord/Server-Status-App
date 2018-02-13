@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 // import { HttpService } from './http.service';
 import { Server } from '../models/server';
-import { ServerStatus } from '../models/server-status';
+import { StoredServerStatus } from '../models/stored-server-status';
 import { Cluster } from '../models/cluster';
 
 @Injectable()
@@ -25,23 +25,31 @@ export class AppService {
     ).toPromise();
   }
 
-  getCustomServerStatus(serverHost): Promise<HttpResponse<ServerStatus[]>> {
-    return this.httpClient.get<ServerStatus[]>(
+  getCustomStoredServerStatus(serverHost): Promise<HttpResponse<StoredServerStatus[]>> {
+    return this.httpClient.get<StoredServerStatus[]>(
       this.baseURL + '/serverstatus/' +
       serverHost,
       { observe: 'response' }
     ).toPromise();
   }
-  getServerStatus(serverID): Promise<HttpResponse<ServerStatus[]>> {
-    return this.httpClient.get<ServerStatus[]>(
-      this.baseURL + '/serverstatus/' +
+
+  getServerStatus(url, port): Promise<HttpResponse<boolean>> {
+    return this.httpClient.get<boolean>(
+      this.baseURL + '/pingserver/' + url + '/' + port,
+      { observe: 'response' }
+    ).toPromise();
+  }
+
+  getStoredServerStatus(serverID): Promise<HttpResponse<StoredServerStatus[]>> {
+    return this.httpClient.get<StoredServerStatus[]>(
+      this.baseURL + '/storedserverstatus/' +
       serverID,
       { observe: 'response' }
     ).toPromise();
   }
 
-  getServerListStatus(serverList): Promise<HttpResponse<ServerStatus[]>> {
-    return this.httpClient.post<ServerStatus[]>(
+  getStoredServerListStatus(serverList): Promise<HttpResponse<StoredServerStatus[]>> {
+    return this.httpClient.post<StoredServerStatus[]>(
       this.baseURL + '/serverliststatus',
       serverList,
       { observe: 'response' }

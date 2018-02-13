@@ -1,5 +1,6 @@
-
 export interface ServerStatus {
-    id: number;
+    url: string;
+    port: string;
     status: boolean;
+    time: string;
 }

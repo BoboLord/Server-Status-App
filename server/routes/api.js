@@ -21,7 +21,15 @@ router.get('/clusterlist', (req, res) => {
   res.send(dataService.clusters);
 });
 
-router.get('/pingsinglewebsite/:id', function(req, res) {
+router.get('/pingserver/:url/:port', function(req, res) {
+  defaultService.pingServer(req.params.url,req.params.port)
+  .then(data => res.send(data))
+  .catch(function(error){
+    res.send('The host couldn\'t be found');
+  });
+});
+
+router.get('/storedserverstatus/:id', function(req, res) {
   defaultService.pingServer(req.params.id)
   .then(data => res.send(data))
   .catch(function(error){
@@ -30,7 +38,7 @@ router.get('/pingsinglewebsite/:id', function(req, res) {
 });
 
 router.post('/serverliststatus', function(req, res) {
-  defaultService.pingServers(req.body)
+  defaultService.pingStoredServers(req.body)
   .then(data => res.send(data))
   .catch(function(error){
     console.log(error)

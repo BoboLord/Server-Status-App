@@ -3,7 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Cluster } from '../../models/cluster';
 import { Server } from '../../models/server';
 import { AppService } from '../../services/app.service';
-import { ServerStatus } from '../../models/server-status';
+import { StoredServerStatus } from '../../models/stored-server-status';
 
 // import { clearInterval } from 'timers';
 @Component({
@@ -11,12 +11,12 @@ import { ServerStatus } from '../../models/server-status';
   templateUrl: './server-status.component.html',
   styleUrls: ['./server-status.component.scss']
 })
-export class ServerStatusComponent implements OnInit {
+export class StoredServerStatusComponent implements OnInit {
   title = 'server-status-app';
   clusters: Cluster[];
   servers: Server[];
   sortedServers = [];
-  serverIDArray: ServerStatus[];
+  serverIDArray: StoredServerStatus[];
   interval1Cleared = false;
   interval2Cleared = false;
   infoLoaded = false;
@@ -75,7 +75,7 @@ export class ServerStatusComponent implements OnInit {
     for (const serverID of this.serverIDArray) {
       serverArray.push(serverID.id);
     }
-    this.appService.getServerListStatus(serverArray).then(response1 => {
+    this.appService.getStoredServerListStatus(serverArray).then(response1 => {
       this.serverIDArray = response1.body;
       this.interval2Cleared = true;
       for (const cluster of this.sortedServers) {

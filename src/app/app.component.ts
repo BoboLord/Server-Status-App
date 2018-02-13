@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cluster } from './models/cluster';
 import { Server } from './models/server';
 import { AppService } from './services/app.service';
-import { ServerStatus } from './models/server-status';
+import { StoredServerStatus } from './models/stored-server-status';
 
 // import { clearInterval } from 'timers';
 @Component({
