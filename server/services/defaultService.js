@@ -4,9 +4,9 @@ var Promise = require('promise');
 
 pingServer = function(url, port) {
     return new Promise(function (resolve, reject) {
-        if(!port){
-            port=80;
-        }
+        // if(!port){
+        //     port=80;
+        // }
         resolve(pingService.ping(port,{ host: url }))
     })
 }

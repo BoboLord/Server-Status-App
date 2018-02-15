@@ -1,16 +1,13 @@
-
-<div>
-  <div class="form-group">
-    <label for="url">URL:</label>
-    <input type="text" [(ngModel)]="url" class="form-control" id="url">
-  </div>
-  <div class="form-group">
-    <label for="port">Port:</label>
-    <input type="text" [(ngModel)]="port" class="form-control" id="port">
-  </div>
-  <button type="button" class="btn btn-default" (click)="pingServer()">Check</button>
-</div>
 <div class="cluster">
+  
+<div>
+    <div class="form-group url-port">
+    URL:<input type="text" [(ngModel)]="url" class="form-control" id="url">
+    Port:<input type="text" [(ngModel)]="port" class="form-control" id="port">
+    </div>
+    <button type="button" class="btn btn-default" (click)="pingServer()">Check</button>
+  </div>
+  
   <table class=" table-striped table-bordered" *ngIf="serverStatusArray">
     <thead>
       <tr>
