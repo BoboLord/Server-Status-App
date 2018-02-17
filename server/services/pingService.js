@@ -2,6 +2,7 @@ const net = require('net');
 
 function ping(port, opts){
 	opts = Object.assign({timeout: 1000}, opts);
+
 	return new Promise((resolve => {
 		const socket = new net.Socket();
 		const onError = () => {
@@ -18,12 +19,14 @@ function ping(port, opts){
 			})	
 		}
 		else{
-			socket.connect(opts.host, () => {
+			socket.connect(80, opts.host, () => {
 				socket.end();
 				resolve(true); 
 			})
 		}
     }))
 }
+
+
 
 exports.ping = ping;
