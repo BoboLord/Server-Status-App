@@ -1,13 +1,21 @@
 <div class="cluster">
-  
-<div>
-    <div class="form-group url-port">
-    URL:<input type="text" [(ngModel)]="url" class="form-control" id="url">
-    Port:<input type="text" [(ngModel)]="port" class="form-control" id="port">
+
+  <div>
+    <div class="form-group">
+      <div class=" input-group url">
+        <span class="input-group-addon">URL:</span>
+        <input type="text" [(ngModel)]="url" class="form-control" id="url">
+      </div>
+      <div class=" input-group port">
+        <span class="input-group-addon">Port:</span>
+        <input type="text" [(ngModel)]="port" class="form-control" id="port">
+      </div>
+      <div class="button">
+        <button type="button" class="btn btn-default" (click)="pingServer()">Check</button>
+      </div>
     </div>
-    <button type="button" class="btn btn-default" (click)="pingServer()">Check</button>
   </div>
-  
+
   <table class=" table-striped table-bordered" *ngIf="serverStatusArray">
     <thead>
       <tr>
@@ -22,7 +30,9 @@
         <td class="host">
           {{server.url}}
         </td>
-        <td class="port">{{server.port? server.port : '-'}}</td>
+        <td class="port">
+          {{server.port? server.port : '-'}}
+        </td>
         <td>
           <img *ngIf="server.status" data-toggle="tooltip" title="Server is up" class="checked" src="/assets/checked.svg">
           <img *ngIf="!server.status" data-toggle="tooltip" title="Server is down" class="cancel" src="/assets/cancel.svg">
@@ -36,8 +46,8 @@
 </div>
 
 <script>
-  $(document).ready(function(){
-      $('[data-toggle="tooltip"]').tooltip(); 
+  $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
   });
-  </script>
-  
+
+</script>
