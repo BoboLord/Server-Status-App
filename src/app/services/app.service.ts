@@ -7,9 +7,10 @@ import { Cluster } from '../models/cluster';
 
 @Injectable()
 export class AppService {
-  baseURL = 'http://35.200.180.139:5000/api';
+//  baseURL = 'http://35.200.180.139:5000/api';
+baseURL = 'http://localhost:5000/api';
 
-  constructor(private httpClient: HttpClient) { }
+constructor(private httpClient: HttpClient) { }
 
   getListOfClusters(): Promise<HttpResponse<Cluster[]>> {
     return this.httpClient.get<Cluster[]>(
@@ -34,8 +35,8 @@ export class AppService {
   }
 
   getServerStatus(url, port): Promise<HttpResponse<boolean>> {
-    return this.httpClient.get<boolean>(
-      this.baseURL + '/pingserver/' + url + '/' + port,
+    return this.httpClient.post<boolean>(
+      this.baseURL + '/pingserver', {'url': url, 'port': port},
       { observe: 'response' }
     ).toPromise();
   }

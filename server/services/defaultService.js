@@ -3,14 +3,31 @@ var dataService = require('./dataService.js');
 var Promise = require('promise');
 
 pingServer = function(url, port) {
+    if(!port){
+        port = getPortFromUrl(url);
+    }
+    if(port){
+        url = removeProtocolFromUrl(url)
+    }
     return new Promise(function (resolve, reject) {
-        // if(!port){
-        //     port=80;
-        // }
         resolve(pingService.ping(port,{ host: url }))
     })
 }
 
+getPortFromUrl = function(url){
+	if( url.indexOf("https") == 0 ) {
+		return 443;
+	} else if ( url.indexOf("http") == 0 ) {
+		return 80;
+	} else{
+		return null;
+	}
+}
+
+removeProtocolFromUrl = function(url){
+	result = url.replace(/(^\w+:|^)\/\//, '');
+	return result;
+}
 pingStoredServer = function (id) {
     return new Promise(function (resolve, reject) {
         for (let server of dataService.servers) {
@@ -25,7 +42,7 @@ pingStoredServer = function (id) {
 }
 
 pingStoredServers = function (idArray) {
-    return new Promise(function (resolve, reject) {                            //return false;
+    return new Promise(function (resolve, reject) {
         var serverStatusArray = [];
         var a = [];
         for (let i = 0; i < idArray.length; i++) {

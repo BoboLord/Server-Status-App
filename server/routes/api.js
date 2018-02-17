@@ -21,8 +21,8 @@ router.get('/clusterlist', (req, res) => {
   res.send(dataService.clusters);
 });
 
-router.get('/pingserver/:url/:port', function(req, res) {
-  defaultService.pingServer(req.params.url,req.params.port)
+router.post('/pingserver', function(req, res) {
+  defaultService.pingServer(req.body.url,req.body.port)
   .then(data => res.send(data))
   .catch(function(error){
     res.send(false);
