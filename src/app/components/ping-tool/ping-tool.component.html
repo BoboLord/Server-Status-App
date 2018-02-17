@@ -8,7 +8,7 @@
       </div>
       <div class=" input-group port">
         <span class="input-group-addon">Port:</span>
-        <input type="text" [(ngModel)]="port" class="form-control" id="port">
+        <input type="number" [(ngModel)]="port" class="form-control" id="port" onKeyPress="if(this.value.length==5) return false;">
       </div>
       <div class="button">
         <button type="button" class="btn btn-default" (click)="pingServer()">Check</button>
@@ -30,7 +30,7 @@
         <td class="host">
           {{server.url}}
         </td>
-        <td class="port">
+        <td>
           {{server.port? server.port : '-'}}
         </td>
         <td>
