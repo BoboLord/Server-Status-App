@@ -25,7 +25,7 @@ router.get('/pingserver/:url/:port', function(req, res) {
   defaultService.pingServer(req.params.url,req.params.port)
   .then(data => res.send(data))
   .catch(function(error){
-    res.send('The host couldn\'t be found');
+    res.send(false);
   });
 });
 
