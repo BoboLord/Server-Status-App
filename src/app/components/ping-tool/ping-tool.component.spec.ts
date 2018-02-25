@@ -1,10 +1,10 @@
 import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-describe('AppComponent', () => {
+import { PingToolComponent } from './ping-tool.component';
+describe('PingToolComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        PingToolComponent 
       ],
     }).compileComponents();
   }));

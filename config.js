@@ -13,5 +13,4 @@ config.db.host = 'localhost';
 config.db.port = 27017;
 config.db.user = process.env.DB_USER;
 config.db.password = process.env.DB_PASSWORD;
-console.log('a', config.db.port, config.db.user);
 module.exports = config;
