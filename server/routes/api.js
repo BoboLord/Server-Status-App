@@ -1,6 +1,7 @@
 const express = require('express');
 
 const router = new express.Router();
+const config = require('./../../config');
 const dataService = require('../services/dataService');
 const defaultService = require('../services/defaultService.js');
 /* GET api listing. */
