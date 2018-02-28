@@ -1,19 +1,21 @@
 <div class="cluster">
-
   <div>
-    <div class="form-group">
+    <div class="form-group has-danger">
       <div class="input-group url">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon">URL:</span>
+          <span class="input-group-text" id="basic-addon">URL/IP:</span>
         </div>
-        <input type="text" class="form-control" [(ngModel)]="url" id="url" aria-label="Amount (rounded to the nearest dollar)" aria-describedby="basic-addon">
+        <input type="text" class="form-control " [ngClass]="{'is-invalid' : !isValidUrl(url)}" [(ngModel)]="url" (ngModelChange)="isValidUrl($event)"
+          id="url" aria-label="URL or the IP address pointing to the server" aria-describedby="basic-addon">
+        <div class="invalid-feedback">{{urlError}}</div>
       </div>
       <div class="input-group port">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon">Port:</span>
         </div>
-        <input type="text" class="form-control" [(ngModel)]="port" id="port" onKeyPress="if(this.value.length==5) return false;"
-          aria-label="Amount (rounded to the nearest dollar)" aria-describedby="basic-addon">
+        <input type="text" class="form-control" [ngClass]="{'is-invalid' : !isValidPort(port)}" [(ngModel)]="port" id="port" (ngModelChange)="isValidUrl($event)"
+          aria-label="Port of the server to be pinged" aria-describedby="basic-addon">
+        <div class="invalid-feedback">{{portError}}</div>
       </div>
       <div class="button">
         <button type="button" class="btn btn-default" (click)="pingServer()">Check</button>
