@@ -1,15 +1,22 @@
+
 <div class="cluster">
 
   <div>
-    <div class="form-group">
-      <div class=" input-group url">
-        <span class="input-group-addon">URL:</span>
-        <input type="text" [(ngModel)]="url" class="form-control" id="url">
-      </div>
-      <div class=" input-group port">
-        <span class="input-group-addon">Port:</span>
-        <input type="number" [(ngModel)]="port" class="form-control" id="port" onKeyPress="if(this.value.length==5) return false;">
-      </div>
+    <div class="form-group"> 
+<div class="input-group url">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon">URL:</span>
+      </div>  
+    <input type="text" class="form-control" [(ngModel)]="url" id="url" aria-label="Amount (rounded to the nearest dollar)" aria-describedby="basic-addon">
+  </div>
+          
+  <div class="input-group port">
+      <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon">Port:</span>
+        </div>  
+      <input type="text" class="form-control" [(ngModel)]="port" id="port" onKeyPress="if(this.value.length==5) return false;" aria-label="Amount (rounded to the nearest dollar)" aria-describedby="basic-addon">
+    </div>
+  
       <div class="button">
         <button type="button" class="btn btn-default" (click)="pingServer()">Check</button>
       </div>
