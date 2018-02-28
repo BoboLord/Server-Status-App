@@ -19,7 +19,7 @@ export class PingToolComponent implements OnInit {
   constructor(private appService: AppService, private router: Router) {}
 
   ngOnInit() {
-    this.url = '35.200.180.139';
+    this.url = '139.59.65.157';
     this.port = '80';
     this.status = false;
   }
