@@ -7,10 +7,9 @@ import { Cluster } from '../models/cluster';
 
 @Injectable()
 export class AppService {
-  baseURL = 'http://139.59.65.157:5000/api';
-// baseURL = 'http://localhost:5000/api';
+  baseURL = 'https://api.obsidianserver.cf';
 
-constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   getListOfClusters(): Promise<HttpResponse<Cluster[]>> {
     return this.httpClient.get<Cluster[]>(
