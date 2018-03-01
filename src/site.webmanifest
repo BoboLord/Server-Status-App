@@ -14,6 +14,6 @@
   ],
   "theme_color": "#343a40",
   "background_color": "#ffffff",
-  "start_url": "https://www.obsidianserver.cf",
+  "start_url": "index.html",
   "display": "standalone"
 }
