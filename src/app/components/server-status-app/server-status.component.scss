@@ -6,12 +6,11 @@
   font-size: 10px;
 }
 
-.loader > div {
+.loader>div {
   background-color: #333;
   height: 100%;
   width: 12px;
   display: inline-block;
-
   -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
   animation: sk-stretchdelay 1.2s infinite ease-in-out;
 }
@@ -61,20 +60,41 @@
 }
 
 .cancel {
-  height: 30px;
+  max-height: 30px;
+  max-width: 30px; //width: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .checked {
-  height: 30px;
+  max-height: 30px; //width: auto;
+  max-width: 30px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .refresh {
-  height: 30px;
+  max-height: 30px; //width: auto;
+  max-width: 30px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .play {
-  height: 30px;
+  max-height: 30px; //width: auto;
+  max-width: 30px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .port {
   text-align: center;
 }
+
 .cluster {
   margin: 0 auto;
   padding: 0 5px 0 5px;
@@ -89,7 +109,6 @@
         height: 50px;
         th {
           text-align: center;
-
           .host {
             width: 30%;
           }
