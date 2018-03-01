@@ -21,17 +21,17 @@
       <tbody>
         <tr *ngFor="let server of cluster.servers">
           <td class="host">
-            <a target="_blank" [href]=server.url data-toggle="tooltip" title="Open in a new tab">{{server.name}}</a>
+            <a target="_blank" [href]=server.url rel="noopener" data-toggle="tooltip" title="Open in a new tab">{{server.name}}</a>
           </td>
           <td class="host">{{server.host}}</td>
           <td class="port">{{server.port? server.port : '-'}}</td>
           <td>
-            <img *ngIf="server.status" data-toggle="tooltip" title="Server is up" class="checked" src="/assets/checked.svg">
-            <img *ngIf="!server.status" data-toggle="tooltip" title="Server is down" class="cancel" src="/assets/cancel.svg">
+            <div *ngIf="server.status" data-toggle="tooltip" title="Server is up" class="checked" [inlineSVG]="'/assets/checked.svg'"></div>
+            <div *ngIf="!server.status" data-toggle="tooltip" title="Server is down" class="cancel" [inlineSVG]="'/assets/cancel.svg'"></div>
           </td>
           <td>
-            <img *ngIf="server.status" data-toggle="tooltip" title="Restart server" class="refresh" src="/assets/refresh.svg">
-            <img *ngIf="!server.status" class="play" data-toggle="tooltip" title="Start server" src="/assets/play.svg">
+            <div *ngIf="server.status" data-toggle="tooltip" title="Restart server" class="refresh" [inlineSVG]="'/assets/refresh.svg'"></div>
+            <div *ngIf="!server.status" class="play" data-toggle="tooltip" title="Start server" [inlineSVG]="'/assets/play.svg'"></div>
           </td>
         </tr>
       </tbody>
