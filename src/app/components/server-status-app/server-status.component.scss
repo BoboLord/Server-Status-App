@@ -95,13 +95,27 @@
   text-align: center;
 }
 
+.app-body {
+  text-align: center;
+  background-color: #ffff;
+  .cluster-block {
+    text-align: left;
+    width: 100%;
+    max-width: 1000px;
+    display: inline-block;
+  }
+}
+
 .cluster {
-  margin: 0 auto;
-  padding: 0 0 0 0;
+  background-color: #f4f4f4;
+  margin: 15px 0px 5px 0px;
+  padding: 5px;
   width: 100%;
   max-width: 1200px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
   table {
-    margin: 0 auto;
+    background-color: #ffff;
+    padding: 5px 5px 5px 5px;
     width: 100%;
     thead {
       tr {
