@@ -114,6 +114,8 @@
   width: 100%;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
   table {
+    display: block;
+    overflow: auto;
     background-color: #ffff;
     color: black;
     padding: 5px 5px 5px 5px;
@@ -133,6 +135,11 @@
           td {
             padding-left: 10px;
             padding-right: 10px;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
           }
         }
       }

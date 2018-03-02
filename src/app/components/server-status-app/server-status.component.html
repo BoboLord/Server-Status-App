@@ -24,7 +24,9 @@
             <td class="host">
               <a target="_blank" [href]=server.url rel="noopener" data-toggle="tooltip" title="Open in a new tab">{{server.name}}</a>
             </td>
-            <td class="host">{{server.host}}</td>
+            <td class="host">
+              {{server.host}}
+            </td>
             <td class="port">{{server.port? server.port : '-'}}</td>
             <td>
               <div *ngIf="server.status" data-toggle="tooltip" title="Server is up" class="checked" [inlineSVG]="'/assets/checked.svg'"></div>
