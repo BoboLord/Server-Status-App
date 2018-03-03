@@ -1,11 +1,12 @@
-const clusters = [{
-    clusterID: 0,
-    clusterName: 'Development'
-  },
-  {
-    clusterID: 1,
-    clusterName: 'Testing'
-  },
+const clusters = [
+  // {
+  //   clusterID: 0,
+  //   clusterName: 'Development'
+  // },
+  // {
+  //   clusterID: 1,
+  //   clusterName: 'Testing'
+  // },
   {
     clusterID: 2,
     clusterName: 'Miscellaneous'
@@ -61,15 +62,13 @@ servers.push({
   id: 6,
   clusterID: 2,
   name: 'Obsidian Server',
-  host: '139.59.33.125',
-  port: 80
+  host: 'www.obsidianserver.cf'
 });
 servers.push({
   id: 7,
   clusterID: 2,
-  name: 'pgAdmin',
-  host: '10.206.0.80',
-  port: 5050
+  name: 'Facebook',
+  host: 'www.facebook.com'
 });
 servers.push({
   id: 8,
