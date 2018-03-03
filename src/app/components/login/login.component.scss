@@ -1,1 +1,13 @@
+.panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+}
 
+.login-container {
+  display: block;
+  background-color: #3f63ff;
+  height: 200px;
+  width: 300px;
+}
