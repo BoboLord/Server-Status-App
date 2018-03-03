@@ -1,6 +1,10 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 /* @import "~font-awesome/css/font-awesome.css"; */
 
+body {
+  background-color: rgba(238, 238, 238, 0.46);
+}
+
 .custom-scrollbar::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
