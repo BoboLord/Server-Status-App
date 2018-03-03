@@ -1,45 +1,28 @@
-<!-- <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/">Obsidian Server</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
-        <a routerLink="/">Server Status</a>
-      </li>
-      <li [routerLinkActive]="['active']">
-        <a routerLink="/ping-tool">Ping Tool</a>
-      </li>
-    </ul>
-  </div>
-</nav> -->
-
-<!-- A grey horizontal navbar that becomes vertical on small screens -->
-<nav class="navbar navbar-expand-sm navbar-dark navbar-obsidian">
+<nav class="navbar navbar-expand-md navbar-dark navbar-obsidian">
   <div class="white-logo" routerLink="/" [inlineSVG]="'/assets/up-button-white.svg'"></div>
   <a class="navbar-brand" routerLink="/">
     Obsidian Server
   </a>
-  <ul class="navbar-nav">
-    <li class="nav-item cstm-item" [routerLinkActive]="['cstm-active']" [routerLinkActiveOptions]="{ exact: true }">
-      <a class="nav-link" routerLink="/">Server Status</a>
-    </li>
-    <li class="nav-item cstm-item" [routerLinkActive]="['cstm-active']">
-      <a class="nav-link" routerLink="/ping-tool">Ping Tool</a>
-    </li>
-
-    <!-- Dropdown
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-            Dropdown link
-          </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Link 1</a>
-            <a class="dropdown-item" href="#">Link 2</a>
-            <a class="dropdown-item" href="#">Link 3</a>
-          </div>
-        </li>
-     -->
-  </ul>
-
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" aria-controls="collapsibleNavbar"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item cstm-item" [routerLinkActive]="['cstm-active']" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/">Server Status</a>
+      </li>
+      <li class="nav-item cstm-item" [routerLinkActive]="['cstm-active']">
+        <a class="nav-link" routerLink="/ping-tool">Ping Tool</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item cstm-item" [routerLinkActive]="['cstm-active']" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/login">Log in</a>
+      </li>
+      <li class="nav-item cstm-item" [routerLinkActive]="['cstm-active']" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/register">Register</a>
+      </li>
+    </ul>
+  </div>
 </nav>
