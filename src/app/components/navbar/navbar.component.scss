@@ -3,6 +3,8 @@
   .cstm-item {
     a {
       color: #ffffff;
+      margin-left: 10px;
+      margin-right: 10px;
     }
   }
   .cstm-item:hover {
@@ -33,4 +35,9 @@
 
 .white-logo:focus {
   outline: none;
+}
+
+.navbar-expand-md .navbar-nav .nav-link {
+  padding-right: 0rem;
+  padding-left: 0rem;
 }
