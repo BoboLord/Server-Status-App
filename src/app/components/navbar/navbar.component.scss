@@ -1,5 +1,23 @@
 .navbar-obsidian {
-  background-color: #293169 // #1f33b9;
+  background-color: #3f63ff; // #1f33b9;
+  .cstm-item {
+    a {
+      color: #ffffff;
+    }
+  }
+  .cstm-item:hover {
+    background-color: #254bf7;
+  }
+  .cstm-item:active:hover {
+    background-color: #1939c9;
+  }
+  .cstm-active {
+    background-color: #254bf7;
+    transition: 1s;
+    a {
+      color: #ffffff;
+    }
+  }
 }
 
 .white-logo {
