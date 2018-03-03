@@ -13,6 +13,7 @@ import { AppService } from './services/app.service';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { StoredServerStatusComponent } from './components/server-status-app/server-status.component';
 import { PingToolComponent } from './components/ping-tool/ping-tool.component';
@@ -22,7 +23,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { appRoutes } from './utilities/app-routing';
 @NgModule({
   declarations: [AppComponent, NavbarComponent, StoredServerStatusComponent, PingToolComponent, LoginComponent,
-    RegistrationComponent, PageNotFoundComponent],
+    ForgotPasswordComponent, RegistrationComponent, PageNotFoundComponent],
   imports: [BrowserModule, HttpClientModule, InlineSVGModule, FormsModule,
     RouterModule.forRoot(
       appRoutes,

@@ -26,3 +26,36 @@ svg {
   max-height: inherit;
   max-width: inherit;
 }
+
+.cstm-primary-button {
+  background-color: #3f63ff;
+  border: 0;
+  color: #ffffff;
+  padding: 5px 10px 5px 10px;
+}
+
+.cstm-primary-button:hover {
+  background-color: #254bf7;
+  cursor: pointer;
+}
+
+.cstm-primary-button:focus {
+  //selected
+  background-color: #3f63ff;
+  outline: 0;
+  transition: all 0.3s ease-out 0s;
+}
+
+.cstm-primary-button:active {
+  //mousedown
+  transition: none;
+  background-color: #1939c9;
+}
+
+.cstm-primary-button:focus:hover {
+  background-color: #254bf7;
+}
+
+.cstm-primary-button:focus:active {
+  background-color: #1939c9;
+}
