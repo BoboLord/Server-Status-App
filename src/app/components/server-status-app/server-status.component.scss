@@ -114,8 +114,7 @@
   width: 100%;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
   table {
-    display: block;
-    overflow: auto;
+    table-layout: fixed;
     background-color: #ffff;
     color: black;
     padding: 5px 5px 5px 5px;
@@ -129,18 +128,26 @@
         height: 50px;
         th {
           text-align: center;
+          min-width: 100px;
           .host {
-            width: 30%;
+            // width: 30%;
           }
           td {
-            padding-left: 10px;
-            padding-right: 10px;
-            white-space: -o-pre-wrap;
-            word-wrap: break-word;
-            white-space: pre-wrap;
-            white-space: -moz-pre-wrap;
-            white-space: -pre-wrap;
+            // padding-left: 10px;
+            // padding-right: 10px;
+            // white-space: -o-pre-wrap;
+            // word-wrap: break-word;
+            // white-space: pre-wrap;
+            // white-space: -moz-pre-wrap;
+            // white-space: -pre-wrap;
           }
+        }
+        th.fixed {
+          width: 100px;
+          min-width: 100px;
+        }
+        th.fluid {
+          width: 100px;
         }
       }
     }
@@ -150,11 +157,18 @@
         max-width: 40px;
         height: 50px;
         .host {
-          width: 30%;
+          // width: 30%;
         }
         td {
           padding-left: 10px;
           padding-right: 10px;
+        }
+        td.fluid {
+          min-width: 100px;
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
