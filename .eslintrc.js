@@ -5,6 +5,7 @@ module.exports = {
   },
   rules: {
     "linebreak-style": ["error", "windows"],
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": ["error", "never"],
+    "code": 140
   }
 };

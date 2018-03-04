@@ -13,21 +13,21 @@ export class AppService {
 
   getListOfClusters(): Promise<HttpResponse<Cluster[]>> {
     return this.httpClient.get<Cluster[]>(
-      this.baseURL + '/clusterlist',
+      this.baseURL + '/ping/clusterlist',
       { observe: 'response' }
     ).toPromise();
   }
 
   getListOfServers(): Promise<HttpResponse<Server[]>> {
     return this.httpClient.get<Server[]>(
-      this.baseURL + '/serverlist',
+      this.baseURL + '/ping/serverlist',
       { observe: 'response' }
     ).toPromise();
   }
 
   getCustomStoredServerStatus(serverHost): Promise<HttpResponse<StoredServerStatus[]>> {
     return this.httpClient.get<StoredServerStatus[]>(
-      this.baseURL + '/serverstatus/' +
+      this.baseURL + '/ping/serverstatus/' +
       serverHost,
       { observe: 'response' }
     ).toPromise();
@@ -35,14 +35,14 @@ export class AppService {
 
   getServerStatus(url, port): Promise<HttpResponse<boolean>> {
     return this.httpClient.post<boolean>(
-      this.baseURL + '/pingserver', {'url': url, 'port': port},
+      this.baseURL + '/ping/pingserver', { 'url': url, 'port': port },
       { observe: 'response' }
     ).toPromise();
   }
 
   getStoredServerStatus(serverID): Promise<HttpResponse<StoredServerStatus[]>> {
     return this.httpClient.get<StoredServerStatus[]>(
-      this.baseURL + '/storedserverstatus/' +
+      this.baseURL + '/ping/storedserverstatus/' +
       serverID,
       { observe: 'response' }
     ).toPromise();
@@ -50,10 +50,9 @@ export class AppService {
 
   getStoredServerListStatus(serverList): Promise<HttpResponse<StoredServerStatus[]>> {
     return this.httpClient.post<StoredServerStatus[]>(
-      this.baseURL + '/serverliststatus',
+      this.baseURL + '/ping/serverliststatus',
       serverList,
       { observe: 'response' }
     ).toPromise();
   }
-
 }
