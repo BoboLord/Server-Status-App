@@ -10,11 +10,12 @@ router.use(function (req, res, next) {
 
 router.get('/login', (req, res) => {
   res.send('login attempt');
-router.post('/login', (req, res) => {
-  console.log(req.body.email)
-  res.json({
-    'XSRF-TOKEN': req
-  });
+  router.post('/login', (req, res) => {
+    console.log(req.body.email)
+    res.json({
+      'XSRF-TOKEN': req
+    });
+  })
 });
 
 
