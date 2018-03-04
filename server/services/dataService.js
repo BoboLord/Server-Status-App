@@ -1,12 +1,11 @@
-const clusters = [
-  // {
-  //   clusterID: 0,
-  //   clusterName: 'Development'
-  // },
-  // {
-  //   clusterID: 1,
-  //   clusterName: 'Testing'
-  // },
+const clusters = [{
+    clusterID: 0,
+    clusterName: 'Development'
+  },
+  {
+    clusterID: 1,
+    clusterName: 'Testing'
+  },
   {
     clusterID: 2,
     clusterName: 'Miscellaneous'
@@ -21,6 +20,7 @@ servers.push({
   host: '10.206.0.80',
   port: 8090
 });
+
 servers.push({
   id: 1,
   clusterID: 0,
@@ -28,6 +28,7 @@ servers.push({
   host: '10.206.0.80',
   port: 8091
 });
+
 servers.push({
   id: 2,
   clusterID: 0,
@@ -43,6 +44,7 @@ servers.push({
   host: '10.206.0.80',
   port: 4200
 });
+
 servers.push({
   id: 4,
   clusterID: 1,
