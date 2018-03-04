@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 import { InlineSVGModule } from 'ng-inline-svg';
 
 import { AppService } from './services/app.service';
+import { HttpXsrfInterceptor } from './utilities/http-xsrf-interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -31,7 +33,9 @@ import { appRoutes } from './utilities/app-routing';
     ),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [HttpClient, AppService],
+  providers: [HttpClient, AppService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpXsrfInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

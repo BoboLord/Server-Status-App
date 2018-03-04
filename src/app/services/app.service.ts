@@ -56,4 +56,11 @@ export class AppService {
       { observe: 'response' }
     ).toPromise();
   }
+  login(email, password) {
+    return this.httpClient.post<string>(
+      this.baseURL + '/users/login',
+      { 'email': email, 'password': password },
+      { observe: 'response' }
+    ).toPromise();
+  }
 }

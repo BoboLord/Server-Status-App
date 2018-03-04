@@ -8,18 +8,18 @@
         <a>Email</a>
       </label>
       <br>
-      <input type="text" placeholder="you@example.com" name="username" required>
+      <input type="text" placeholder="you@example.com" name="username" [(ngModel)]="username" required>
     </div>
     <div class="field-block">
       <label for="password">
         <a>Password</a>
       </label>
       <br>
-      <input type="password" placeholder="∗∗∗∗∗∗∗∗∗∗" name="password" required>
+      <input type="password" placeholder="∗∗∗∗∗∗∗∗∗∗" name="password" [(ngModel)]="password" required>
     </div>
     <br>
     <div class="submit-block">
-      <button type="submit" class="cstm-primary-button">Submit</button>
+      <button type="submit" (click)="submit()" class="cstm-primary-button">Submit</button>
       <br>
       <a routerLink="/forgot">Forgot password</a>
     </div>
