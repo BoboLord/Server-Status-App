@@ -1,33 +1,36 @@
 <div class="panel">
-
-  <div class="login-container">
-    <div class="error-container">
-      <a>{{errorMessage}}</a>
+  <div class="container">
+    <div class="error-container" [style.visibility]="errorMessage ? 'visible' : 'hidden' ">
+      <div class="error">
+        <span>{{errorMessage}}</span>
+      </div>
     </div>
     <div class="transparent-block">
     </div>
-    <div class="login-header">
-      <h4>Login</h4>
-    </div>
-    <div class="field-block">
-      <label for="username">
-        <a>Email</a>
-      </label>
+    <div class="login-container">
+      <div class="login-header">
+        <h4>Login</h4>
+      </div>
+      <div class="field-block">
+        <label for="username">
+          <a>Email</a>
+        </label>
+        <br>
+        <input type="text" (focus)="errorMessage=null" placeholder="you@example.com" name="username" [(ngModel)]="username" required>
+      </div>
+      <div class="field-block">
+        <label for="password">
+          <a>Password</a>
+        </label>
+        <br>
+        <input type="password" (focus)="errorMessage=null" placeholder="∗∗∗∗∗∗∗∗∗∗" name="password" [(ngModel)]="password" required>
+      </div>
       <br>
-      <input type="text" placeholder="you@example.com" name="username" [(ngModel)]="username" required>
-    </div>
-    <div class="field-block">
-      <label for="password">
-        <a>Password</a>
-      </label>
-      <br>
-      <input type="password" placeholder="∗∗∗∗∗∗∗∗∗∗" name="password" [(ngModel)]="password" required>
-    </div>
-    <br>
-    <div class="submit-block">
-      <button type="submit" (click)="submit()" class="cstm-primary-button">Submit</button>
-      <br>
-      <a routerLink="/forgot">Forgot password</a>
+      <div class="submit-block">
+        <button type="submit" (click)="submit()" class="cstm-primary-button">Submit</button>
+        <br>
+        <a routerLink="/forgot">Forgot password</a>
+      </div>
     </div>
   </div>
 </div>
