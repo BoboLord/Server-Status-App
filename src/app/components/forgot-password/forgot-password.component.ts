@@ -8,6 +8,7 @@ import { AppService } from '../../services/app.service';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit {
+  errorMessage: string;
   constructor(private appService: AppService, private router: Router) { }
 
   ngOnInit() { }
