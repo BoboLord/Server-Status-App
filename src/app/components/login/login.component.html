@@ -12,10 +12,11 @@
         <h4>Login</h4>
       </div>
       <div class="field-block">
-        <input type="text" (focus)="errorMessage=null" placeholder="Email" name="username" [(ngModel)]="username" required>
+        <input type="text" (focus)="errorMessage=null" placeholder="Email" name="email" [ngClass]="{'is-invalid' : !isValidEmail()}"
+          [(ngModel)]="email" required>
       </div>
       <div class="field-block">
-        <input type="password" (focus)="errorMessage=null" placeholder="Password" name="password" [(ngModel)]="password" required>
+        <input type="password" (focus)="errorMessage=null;" placeholder="Password" name="password" [(ngModel)]="password" required>
       </div>
       <div class="submit-block">
         <button type="submit" (click)="submit()" class="cstm-primary-button">Submit</button>
