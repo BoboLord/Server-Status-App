@@ -8,7 +8,7 @@ import { AppService } from '../../services/app.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor(private appService: AppService, private router: Router) { }
+  constructor(public appService: AppService, private router: Router) { }
 
   ngOnInit() { }
 }

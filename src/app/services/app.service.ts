@@ -8,6 +8,7 @@ import { Cluster } from '../models/cluster';
 @Injectable()
 export class AppService {
   baseURL = 'https://api.obsidianserver.cf';
+  csrfToken: string;
 
   constructor(private httpClient: HttpClient) { }
 

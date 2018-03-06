@@ -13,6 +13,7 @@ import { HttpXsrfInterceptor } from './utilities/http-xsrf-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
@@ -24,7 +25,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 
 import { appRoutes } from './utilities/app-routing';
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, StoredServerStatusComponent, PingToolComponent, LoginComponent,
+  declarations: [AppComponent, HomeComponent, NavbarComponent, StoredServerStatusComponent, PingToolComponent, LoginComponent,
     ForgotPasswordComponent, RegistrationComponent, PageNotFoundComponent],
   imports: [BrowserModule, HttpClientModule, InlineSVGModule, FormsModule,
     RouterModule.forRoot(
