@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs';
 import {
   HttpClient, HttpXsrfTokenExtractor, HttpRequest, HttpResponse,
   HttpHandler, HttpInterceptor, HttpEvent
