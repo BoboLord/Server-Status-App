@@ -32,7 +32,7 @@ svg {
 }
 
 .cstm-primary-button {
-  background-color: #0089ff;
+  background-color: #0072ff;
   border: 0;
   color: #ffffff;
   padding: 5px 10px 5px 10px;
@@ -40,14 +40,14 @@ svg {
 }
 
 .cstm-primary-button:hover {
-  background-color: #004eff;
+  background-color: #0051e7;
   cursor: pointer;
   transition: all 0.3s ease-out 0s;
 }
 
 .cstm-primary-button:focus {
   //selected
-  background-color: #0089ff;
+  background-color: #0072ff;
   outline: 0;
   transition: all 0.3s ease-out 0s;
 }
@@ -60,7 +60,7 @@ svg {
 }
 
 .cstm-primary-button:focus:hover {
-  background-color: #004eff;
+  background-color: #0051e7;
 }
 
 .cstm-primary-button:focus:active {

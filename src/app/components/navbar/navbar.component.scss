@@ -1,5 +1,5 @@
 .navbar-obsidian {
-  background-color: #0089ff; // #1f33b9;
+  background-color: #0072ff; // #1f33b9;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
   .cstm-item {
     a {
@@ -10,19 +10,19 @@
     transition: all 0.3s ease-out 0s;
   }
   .cstm-item:hover {
-    background-color: #0072ff; // 004eff;
+    background-color: #0051e7; // 004eff;
     transition: all 0.3s ease-out 0s;
 
   }
   .cstm-active {
-    background-color: #0070fb;
+    background-color: #005aff;
     transition: all 0.3s ease-out 0s;
     a {
       color: #ffffff;
     }
   }
   .cstm-item:active:hover {
-    background-color: #0e4bd6;
+    background-color: #0051e7;
   }
 }
 
