@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http/src/http_module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -27,7 +27,7 @@ import { appRoutes } from './utilities/app-routing';
 @NgModule({
   declarations: [AppComponent, HomeComponent, NavbarComponent, StoredServerStatusComponent, PingToolComponent, LoginComponent,
     ForgotPasswordComponent, RegistrationComponent, PageNotFoundComponent],
-  imports: [BrowserModule, HttpClientModule, InlineSVGModule, FormsModule,
+  imports: [BrowserModule, HttpClientModule, InlineSVGModule, ReactiveFormsModule, FormsModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false, onSameUrlNavigation: 'reload' } // <-- debugging purposes only

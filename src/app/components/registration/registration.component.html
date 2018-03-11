@@ -1,1 +1,28 @@
-
+<div class="panel">
+  <div class="container">
+    <div class="error-container" [style.visibility]="errorMessage ? 'visible' : 'hidden' ">
+      <div class="error">
+        <span>{{errorMessage}}</span>
+      </div>
+    </div>
+    <div class="transparent-block">
+    </div>
+    <div class="login-container">
+      <div class="login-header">
+        <h4>Register</h4>
+      </div>
+      <div class="field-block">
+        <input type="text" (focus)="errorMessage=null" placeholder="Email" name="email" [(ngModel)]="email" required>
+      </div>
+      <div class="field-block">
+        <input type="password" (focus)="errorMessage=null;" placeholder="Password" name="password" [(ngModel)]="password" required>
+      </div>
+      <div class="submit-block">
+        <button type="submit" (click)="submit()" class="cstm-primary-button">Submit</button>
+        <div>
+          <a routerLink="/forgot">Forgot password</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
