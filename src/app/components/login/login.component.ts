@@ -39,16 +39,19 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.loginFormSubmitted = false;
+      this.loginFormSubmitted = true;
       this.appService.login(this.loginForm.value.email, this.loginForm.value.password).then(response =>
         console.log(response)
       ).catch(err => {
         console.log(err);
         if (err.status === 403 || 400) {
           this.errorMessage = err.error.message;
-          // if (this.errorMessage === '') {
-          //   this.loginForm.set('email').invalid = true;
-          // }
+          if (err.error.errorIn === 'email') {
+            this.loginForm.controls['email'].setErrors({ 'invalid': true });
+          }
+          if (err.error.errorIn === 'password') {
+            this.loginForm.controls['password'].setErrors({ 'invalid': true });
+          }
         }
       });
     } else {

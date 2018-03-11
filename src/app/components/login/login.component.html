@@ -13,7 +13,7 @@
       </div>
       <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="fields">
-          <div class="field-block" [ngClass]="{'has-danger': loginFormSubmitted && loginForm.get('email').invalid}">
+          <div class="field-block" [ngClass]="{'has-danger': loginFormSubmitted && (loginForm.get('email').invalid || loginForm.controls['email'].errors)}">
             <input type="text" (focus)="errorMessage=null" placeholder="Email" formControlName="email">
           </div>
           <div class="field-block" [ngClass]="{'has-danger': loginFormSubmitted && loginForm.get('password').invalid}">
