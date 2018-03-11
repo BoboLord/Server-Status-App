@@ -9,15 +9,16 @@
     </div>
     <div class="login-container">
       <div class="login-header">
-        <h4>Login</h4>
+        <a>Login</a>
       </div>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
-        <div class="field-block">
-          <input type="text" (focus)="errorMessage=null" placeholder="Email" formControlName="email" required>
-        </div>
-        <div class="field-block">
-          <input type="password" (focus)="errorMessage=null;" placeholder="Password" formControlName="password" required>
+      <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="fields">
+          <div class="field-block" [ngClass]="{'has-danger': loginFormSubmitted && loginForm.get('email').invalid}">
+            <input type="text" (focus)="errorMessage=null" placeholder="Email" formControlName="email">
+          </div>
+          <div class="field-block" [ngClass]="{'has-danger': loginFormSubmitted && loginForm.get('password').invalid}">
+            <input type="password" (focus)="errorMessage=null;" placeholder="Password" formControlName="password">
+          </div>
         </div>
         <div class="submit-block">
           <button type="submit" class="cstm-primary-button">Submit</button>

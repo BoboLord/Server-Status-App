@@ -24,6 +24,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 
 
 import { appRoutes } from './utilities/app-routing';
+import { ValidationTool } from './utilities/validation-tool';
+
 @NgModule({
   declarations: [AppComponent, HomeComponent, NavbarComponent, StoredServerStatusComponent, PingToolComponent, LoginComponent,
     ForgotPasswordComponent, RegistrationComponent, PageNotFoundComponent],
@@ -34,7 +36,7 @@ import { appRoutes } from './utilities/app-routing';
     ),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [HttpClient, AppService,
+  providers: [HttpClient, AppService, ValidationTool,
     { provide: HTTP_INTERCEPTORS, useClass: HttpXsrfInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

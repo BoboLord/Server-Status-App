@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { AppService } from '../../services/app.service';
+import { FormGroup, FormControl, AbstractControl, ValidatorFn, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
@@ -8,22 +9,46 @@ import { AppService } from '../../services/app.service';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  email: string;
-  password: string;
+  registrationForm: FormGroup;
+  registrationFormSubmitted: boolean;
+  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   errorMessage: string;
-  constructor(private appService: AppService, private router: Router) { }
+  email: FormControl;
+  password: FormControl;
+  constructor(private appService: AppService, private router: Router, private formBuilder: FormBuilder) { }
 
-  ngOnInit() { }
 
-  submit() {
-    this.appService.register(this.email, this.password).then(response =>
-      console.log(response)
-    ).catch(err => {
-      console.log(err);
-      if (err.status === 403) {
-        this.errorMessage = err.error.message;
-      }
+  ngOnInit() {
+    this.createFormControls();
+    this.createForm();
+  }
+
+  createFormControls() {
+    this.email = new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]);
+    this.password = new FormControl('', Validators.required);
+  }
+
+  createForm() {
+    this.registrationForm = this.formBuilder.group({
+      email: this.email,
+      password: this.password
     });
   }
 
+  onSubmit() {
+    if (this.registrationForm.valid) {
+      this.registrationFormSubmitted = false;
+      console.log(this.email);
+      console.log(this.password);
+      this.appService.register(this.registrationForm.value.email, this.registrationForm.value.password).then(response =>
+        console.log(response)
+      ).catch(err => {
+        if (err.status === 403) {
+          this.errorMessage = err.error.message;
+        }
+      });
+    } else {
+      this.registrationFormSubmitted = true;
+    }
+  }
 }
