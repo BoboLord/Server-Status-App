@@ -55,15 +55,23 @@ export class LoginComponent implements OnInit {
       });
     } else {
       this.loginFormSubmitted = true;
-      this.errorMessage = 'Please enter all the login fields';
+      let emptyFieldErrorCount = 0;
       if (this.loginForm.get('email').invalid) {
-        if (this.loginForm.value.email !== null) {
+        if (this.loginForm.value.email === '') {
+          emptyFieldErrorCount++;
           this.errorMessage = 'Please enter your email ID';
         } else {
           this.errorMessage = 'Please enter a valid email ID';
+          return;
         }
-      } else if (this.loginForm.get('password').invalid) {
+      }
+      if (this.loginForm.get('password').invalid) {
+        emptyFieldErrorCount++;
         this.errorMessage = 'Please enter your password';
+      }
+      console.log('errors', emptyFieldErrorCount);
+      if (emptyFieldErrorCount > 1) {
+        this.errorMessage = 'Please enter all the login fields';
       }
     }
     if (this.loginForm.value.email !== null && this.loginForm.value.email !== '') {
