@@ -41,9 +41,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.loginFormSubmitted = true;
       this.appService.login(this.loginForm.value.email, this.loginForm.value.password).then(response =>
-        console.log(response)
+        console.log('successful')
       ).catch(err => {
-        console.log(err);
         if (err.status === 403 || 400) {
           this.errorMessage = err.error.message;
           if (err.error.errorIn === 'email') {
@@ -57,21 +56,19 @@ export class LoginComponent implements OnInit {
     } else {
       this.loginFormSubmitted = true;
       this.errorMessage = 'Please enter all the login fields';
-      // if (this.loginForm.value.email !== null && this.loginForm.value.email !== '') {
-      //   if (!this.isValidEmail()) {
-      //     console.log(this.loginForm.value);
-      //     this.errorMessage = 'Please enter a valid email ID';
-      //     return;
-      //   }
-      // } else {
-      //   this.errorMessage = 'Please enter your email ID';
-      //   return;
-      // }
-      // if (this.loginForm.value.email !== null && this.loginForm.value.email !== '') {
-      //   this.errorMessage = 'Please enter your password';
-      //   return;
-      // }
-
+      if (this.loginForm.get('email').invalid) {
+        if (this.loginForm.value.email !== null) {
+          this.errorMessage = 'Please enter your email ID';
+        } else {
+          this.errorMessage = 'Please enter a valid email ID';
+        }
+      } else if (this.loginForm.get('password').invalid) {
+        this.errorMessage = 'Please enter your password';
+      }
     }
+    if (this.loginForm.value.email !== null && this.loginForm.value.email !== '') {
+    }
+
   }
 }
+  }
