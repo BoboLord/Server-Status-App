@@ -12,40 +12,40 @@ import { ValidationTool } from '../../utilities/validation-tool';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginFormSubmitted: boolean;
-  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   errorMessage: string;
-  email: FormControl;
-  password: FormControl;
+  // email = new FormControl('', [Validators.required, Validators.email]);
+  // password = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(private appService: AppService, private router: Router, private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
-    this.createFormControls();
+    // this.createFormControls();
     this.createForm();
   }
 
-  createFormControls() {
-    this.email = new FormControl('', [Validators.required, Validators.email]);
-    this.password = new FormControl('', Validators.required);
-  }
+  // createFormControls() {
+  //   this.email = new FormControl('', [Validators.required, Validators.email]);
+  //   this.password = new FormControl('', Validators.required);
+  // }
 
   createForm() {
     this.loginForm = this.formBuilder.group({
-      email: this.email,
-      password: this.password
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', Validators.required)
     });
   }
 
   onSubmit() {
-    this.loginForm.controls['email'].setErrors(null);
-    this.loginForm.controls['password'].setErrors(null);
-
     if (this.loginForm.valid) {
       this.loginFormSubmitted = true;
       this.appService.login(this.loginForm.value.email, this.loginForm.value.password).then(response =>
         console.log('successful')
       ).catch(err => {
+        this.loginForm.controls['email'].setErrors(null);
+        this.loginForm.controls['password'].setErrors(null);
+
+
         if (err.status === 403 || 400) {
           this.errorMessage = err.error.message;
           if (err.error.errorIn === 'email') {

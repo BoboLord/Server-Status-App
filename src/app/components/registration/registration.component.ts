@@ -11,7 +11,6 @@ import { FormGroup, FormControl, AbstractControl, ValidatorFn, Validators, FormB
 export class RegistrationComponent implements OnInit {
   registrationForm: FormGroup;
   registrationFormSubmitted: boolean;
-  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   errorMessage: string;
   email: FormControl;
   password: FormControl;
@@ -24,7 +23,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   createFormControls() {
-    this.email = new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]);
+    this.email = new FormControl('', [Validators.required, Validators.email]);
     this.password = new FormControl('', Validators.required);
   }
 
@@ -38,17 +37,58 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     if (this.registrationForm.valid) {
       this.registrationFormSubmitted = true;
-      console.log(this.email);
-      console.log(this.password);
       this.appService.register(this.registrationForm.value.email, this.registrationForm.value.password).then(response =>
-        console.log(response)
+        console.log('successful')
       ).catch(err => {
-        if (err.status === 403) {
+        this.registrationForm.controls['email'].setErrors(null);
+        this.registrationForm.controls['password'].setErrors(null);
+
+        if (err.status === 403 || 400) {
           this.errorMessage = err.error.message;
+          if (err.error.errorIn === 'email') {
+            this.registrationForm.controls['email'].setErrors({ 'incorrect': true });
+          }
+          if (err.error.errorIn === 'password') {
+            this.registrationForm.controls['password'].setErrors({ 'incorrect': true });
+          }
         }
       });
     } else {
       this.registrationFormSubmitted = true;
+      let emptyFieldErrorCount = 0;
+      if (this.registrationForm.get('email').invalid) {
+        if (this.registrationForm.value.email === '') {
+          emptyFieldErrorCount++;
+          this.errorMessage = 'Please enter your email ID';
+        } else {
+          this.errorMessage = 'Please enter a valid email ID';
+          return;
+        }
+      }
+      if (this.registrationForm.get('password').invalid) {
+        emptyFieldErrorCount++;
+        this.errorMessage = 'Please enter your password';
+      }
+      if (emptyFieldErrorCount > 1) {
+        this.errorMessage = 'Please enter all the registration fields';
+      }
     }
   }
+
+  // onSubmit() {
+  //   if (this.registrationForm.valid) {
+  //     this.registrationFormSubmitted = true;
+  //     console.log(this.email);
+  //     console.log(this.password);
+  //     this.appService.register(this.registrationForm.value.email, this.registrationForm.value.password).then(response =>
+  //       console.log(response)
+  //     ).catch(err => {
+  //       if (err.status === 403) {
+  //         this.errorMessage = err.error.message;
+  //       }
+  //     });
+  //   } else {
+  //     this.registrationFormSubmitted = true;
+  //   }
+  // }
 }
