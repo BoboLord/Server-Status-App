@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   createFormControls() {
-    this.email = new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]);
+    this.email = new FormControl('', [Validators.required, Validators.email]);
     this.password = new FormControl('', Validators.required);
   }
 
@@ -38,6 +38,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loginForm.controls['email'].setErrors(null);
+    this.loginForm.controls['password'].setErrors(null);
+
     if (this.loginForm.valid) {
       this.loginFormSubmitted = true;
       this.appService.login(this.loginForm.value.email, this.loginForm.value.password).then(response =>
@@ -46,10 +49,10 @@ export class LoginComponent implements OnInit {
         if (err.status === 403 || 400) {
           this.errorMessage = err.error.message;
           if (err.error.errorIn === 'email') {
-            this.loginForm.controls['email'].setErrors({ 'invalid': true });
+            this.loginForm.controls['email'].setErrors({ 'incorrect': true });
           }
           if (err.error.errorIn === 'password') {
-            this.loginForm.controls['password'].setErrors({ 'invalid': true });
+            this.loginForm.controls['password'].setErrors({ 'incorrect': true });
           }
         }
       });
@@ -69,14 +72,9 @@ export class LoginComponent implements OnInit {
         emptyFieldErrorCount++;
         this.errorMessage = 'Please enter your password';
       }
-      console.log('errors', emptyFieldErrorCount);
       if (emptyFieldErrorCount > 1) {
         this.errorMessage = 'Please enter all the login fields';
       }
     }
-    if (this.loginForm.value.email !== null && this.loginForm.value.email !== '') {
-    }
-
   }
 }
-  }
