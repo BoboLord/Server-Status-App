@@ -13,23 +13,11 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginFormSubmitted: boolean;
   errorMessage: string;
-  // email = new FormControl('', [Validators.required, Validators.email]);
-  // password = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(private appService: AppService, private router: Router, private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
-    // this.createFormControls();
-    this.createForm();
-  }
-
-  // createFormControls() {
-  //   this.email = new FormControl('', [Validators.required, Validators.email]);
-  //   this.password = new FormControl('', Validators.required);
-  // }
-
-  createForm() {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required)
@@ -44,8 +32,6 @@ export class LoginComponent implements OnInit {
       ).catch(err => {
         this.loginForm.controls['email'].setErrors(null);
         this.loginForm.controls['password'].setErrors(null);
-
-
         if (err.status === 403 || 400) {
           this.errorMessage = err.error.message;
           if (err.error.errorIn === 'email') {
