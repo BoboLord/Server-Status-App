@@ -1,1 +1,32 @@
-
+<div class="panel">
+  <div class="container">
+    <div class="error-container" [style.visibility]="errorMessage ? 'visible' : 'hidden' ">
+      <div class="error">
+        <span>{{errorMessage}}</span>
+      </div>
+    </div>
+    <div class="transparent-block">
+    </div>
+    <div class="registration-container">
+      <div class="registration-header">
+        <a>Registration</a>
+      </div>
+      <form class="registration-form" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div class="fields">
+          <div class="field-block" [ngClass]="{'has-danger': registrationFormSubmitted && registrationForm.get('email').invalid}">
+            <input type="text" (focus)="errorMessage=null" placeholder="Email" formControlName="email">
+          </div>
+          <div class="field-block" [ngClass]="{'has-danger': registrationFormSubmitted && registrationForm.get('password').invalid}">
+            <input type="password" (focus)="errorMessage=null;" placeholder="Password" formControlName="password">
+          </div>
+        </div>
+        <div class="submit-block">
+          <button type="submit" class="cstm-primary-button">Submit</button>
+          <div>
+            <a routerLink="/login">Log in</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
