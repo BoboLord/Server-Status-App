@@ -7,12 +7,17 @@ import { Cluster } from '../models/cluster';
 
 @Injectable()
 export class AppService {
-  //  baseURL = 'http://35.200.180.139:5000';
   csrfToken: string;
   baseURL = 'http://127.0.0.1:3000';
 
   constructor(private httpClient: HttpClient) { }
 
+  getToken(): Promise<HttpResponse<String>> {
+    return this.httpClient.get<String>(
+      this.baseURL + '/gettoken',
+      { observe: 'response' }
+    ).toPromise();
+  }
   getListOfClusters(): Promise<HttpResponse<Cluster[]>> {
     return this.httpClient.get<Cluster[]>(
       this.baseURL + '/ping/clusterlist',
