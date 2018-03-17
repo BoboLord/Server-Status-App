@@ -1,26 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import {
-  HttpClient, HttpXsrfTokenExtractor, HttpRequest, HttpResponse,
-  HttpHandler, HttpInterceptor, HttpEvent
+  HttpEvent, HttpInterceptor,
+  HttpHandler, HttpErrorResponse, HttpRequest, HttpResponse
 } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
+import { CookieService } from 'ngx-cookie';
+
 
 @Injectable()
 export class HttpXsrfInterceptor implements HttpInterceptor {
+  constructor(private _cookieService: CookieService) { }
 
-  constructor(private tokenExtractor: HttpXsrfTokenExtractor) {
-  }
-
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const headerName = 'X-XSRF-TOKEN';
-    const token = this.tokenExtractor.getToken() as string;
-    // req = req.clone({
-    //   withCredentials: true
-    // });
-
-    if (token !== null && !req.headers.has(headerName)) {
-      req = req.clone({ headers: req.headers.set(headerName, token) });
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    request = request.clone({ withCredentials: true });
+    const headerName = 'X-CSRF-TOKEN';
+    const token = this._cookieService.get('XSRF-TOKEN');
+    if (token !== null && !request.headers.has(headerName)) {
+      request = request.clone({ headers: request.headers.set(headerName, token) });
     }
-    return next.handle(req);
+    return next.handle(request).do((event: HttpEvent<any>) => {
+      if (event instanceof HttpResponse) {
+      }
+    }, (error: any) => {
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+          // authService.logout();
+        }
+      }
+    });
   }
 }

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http/src/http_module';
@@ -11,6 +11,7 @@ import { InlineSVGModule } from 'ng-inline-svg';
 import { AppService } from './services/app.service';
 import { HttpXsrfInterceptor } from './utilities/http-xsrf-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CookieModule } from 'ngx-cookie';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -34,6 +35,8 @@ import { ValidationTool } from './utilities/validation-tool';
       appRoutes,
       { enableTracing: false, onSameUrlNavigation: 'reload' } // <-- debugging purposes only
     ),
+    CookieModule.forRoot(),
+    HttpClientXsrfModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [HttpClient, AppService, ValidationTool,
