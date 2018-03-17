@@ -37,7 +37,7 @@ export class HttpXsrfInterceptor implements HttpInterceptor {
       if (request.headers.has(InterceptorSkipHeader)) {
         console.log('awd');
         const headers = request.headers.delete(InterceptorSkipHeader);
-        return next.handle(request.clone({ headers }));
+        return next.handle(request);
       }
       this.getToken();
 
