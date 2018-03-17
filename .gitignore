@@ -4,12 +4,13 @@
 config.env
 
 push-master.bat
+package-lock.json
 # compiled output
 /dist
 /dist-server
 /tmp
 /out-tsc
-
+/out
 # dependencies
 /node_modules
 
