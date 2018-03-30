@@ -1,40 +1,39 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 // import { HttpService } from './http.service';
+import { ConfigService } from './../services/config.service';
 import { Server } from '../models/server';
 import { StoredServerStatus } from '../models/stored-server-status';
 import { Cluster } from '../models/cluster';
 
 @Injectable()
 export class AppService {
-  baseURL = 'https://api.obsidianserver.cf';
-  csrfToken: string;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private configService: ConfigService, private httpClient: HttpClient) { }
 
   getToken(): Promise<HttpResponse<String>> {
     return this.httpClient.get<String>(
-      this.baseURL + '/gettoken',
+      this.configService.baseURL + '/gettoken',
       { observe: 'response' }
     ).toPromise();
   }
   getListOfClusters(): Promise<HttpResponse<Cluster[]>> {
     return this.httpClient.get<Cluster[]>(
-      this.baseURL + '/ping/clusterlist',
+      this.configService.baseURL + '/ping/clusterlist',
       { observe: 'response' }
     ).toPromise();
   }
 
   getListOfServers(): Promise<HttpResponse<Server[]>> {
     return this.httpClient.get<Server[]>(
-      this.baseURL + '/ping/serverlist',
+      this.configService.baseURL + '/ping/serverlist',
       { observe: 'response' }
     ).toPromise();
   }
 
   getCustomStoredServerStatus(serverHost): Promise<HttpResponse<StoredServerStatus[]>> {
     return this.httpClient.get<StoredServerStatus[]>(
-      this.baseURL + '/ping/serverstatus/' +
+      this.configService.baseURL + '/ping/serverstatus/' +
       serverHost,
       { observe: 'response' }
     ).toPromise();
@@ -42,14 +41,14 @@ export class AppService {
 
   getServerStatus(url, port): Promise<HttpResponse<boolean>> {
     return this.httpClient.post<boolean>(
-      this.baseURL + '/ping/pingserver', { 'url': url, 'port': port },
+      this.configService.baseURL + '/ping/pingserver', { 'url': url, 'port': port },
       { observe: 'response' }
     ).toPromise();
   }
 
   getStoredServerStatus(serverID): Promise<HttpResponse<StoredServerStatus[]>> {
     return this.httpClient.get<StoredServerStatus[]>(
-      this.baseURL + '/ping/storedserverstatus/' +
+      this.configService.baseURL + '/ping/storedserverstatus/' +
       serverID,
       { observe: 'response' }
     ).toPromise();
@@ -57,21 +56,21 @@ export class AppService {
 
   getStoredServerListStatus(serverList): Promise<HttpResponse<StoredServerStatus[]>> {
     return this.httpClient.post<StoredServerStatus[]>(
-      this.baseURL + '/ping/serverliststatus',
+      this.configService.baseURL + '/ping/serverliststatus',
       serverList,
       { observe: 'response' }
     ).toPromise();
   }
   login(email, password) {
     return this.httpClient.post<string>(
-      this.baseURL + '/user/login',
+      this.configService.baseURL + '/user/login',
       { 'email': email, 'password': password },
       { observe: 'response' }
     ).toPromise();
   }
   register(email, password) {
     return this.httpClient.post<string>(
-      this.baseURL + '/user/register',
+      this.configService.baseURL + '/user/register',
       { 'email': email, 'password': password },
       { observe: 'response' }
     ).toPromise();

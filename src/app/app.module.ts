@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { InlineSVGModule } from 'ng-inline-svg';
 
 import { AppService } from './services/app.service';
+import { ConfigService } from './services/config.service';
 import { HttpXsrfInterceptor } from './utilities/http-xsrf-interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CookieModule } from 'ngx-cookie';
@@ -39,7 +40,7 @@ import { ValidationTool } from './utilities/validation-tool';
     HttpClientXsrfModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [HttpClient, AppService, ValidationTool,
+  providers: [HttpClient, AppService, ConfigService, ValidationTool,
     { provide: HTTP_INTERCEPTORS, useClass: HttpXsrfInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

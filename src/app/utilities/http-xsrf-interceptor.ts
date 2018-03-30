@@ -10,15 +10,17 @@ import { AppService } from '../services/app.service';
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 
+import { ConfigService } from './../services/config.service';
+
 @Injectable()
 export class HttpXsrfInterceptor implements HttpInterceptor {
-  constructor(private _cookieService: CookieService, private http: HttpClient) { }
+  constructor(private configService: ConfigService, private _cookieService: CookieService, private http: HttpClient) { }
 
   getToken(): Promise<HttpResponse<String>> {
     const headers = new HttpHeaders().set(InterceptorSkipHeader, '');
 
     return this.http.get<HttpResponse<String>>(
-      'http://127.0.0.1:3000' + '/gettoken',
+      this.configService.baseURL + '/gettoken',
       { headers }
     ).toPromise();
   }
@@ -28,6 +30,7 @@ export class HttpXsrfInterceptor implements HttpInterceptor {
     const headerName = 'X-CSRF-TOKEN';
     if (this._cookieService.get('XSRF-TOKEN')) {
       const token = this._cookieService.get('XSRF-TOKEN');
+      this.configService.csrfToken = token;
       if (token !== null && !request.headers.has(headerName)) {
         request = request.clone({ headers: request.headers.set(headerName, token) });
       } else {
