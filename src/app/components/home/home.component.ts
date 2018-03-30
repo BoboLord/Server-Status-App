@@ -8,7 +8,7 @@ import { ConfigService } from './../../services/config.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor(private configService: ConfigService, public appService: AppService, private router: Router) { }
+  constructor(public configService: ConfigService, public appService: AppService, private router: Router) { }
 
   ngOnInit() { }
 }
