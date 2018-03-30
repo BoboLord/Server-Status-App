@@ -12,6 +12,12 @@ export class AppService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getToken(): Promise<HttpResponse<String>> {
+    return this.httpClient.get<String>(
+      this.baseURL + '/gettoken',
+      { observe: 'response' }
+    ).toPromise();
+  }
   getListOfClusters(): Promise<HttpResponse<Cluster[]>> {
     return this.httpClient.get<Cluster[]>(
       this.baseURL + '/ping/clusterlist',
