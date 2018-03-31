@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         // console.log(err);
         this.loginForm.controls['email'].setErrors(null);
         this.loginForm.controls['password'].setErrors(null);
-        if (err.status === 403 || 400) {
+        if (err.status === 401 || 400) {
           this.errorMessage = err.error.message;
           if (err.error.errorIn === 'email') {
             this.loginForm.controls['email'].setErrors({ 'incorrect': true });
