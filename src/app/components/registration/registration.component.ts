@@ -37,7 +37,7 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     if (this.registrationForm.valid) {
       this.registrationFormSubmitted = true;
-      this.appService.register(this.registrationForm.value.email, this.registrationForm.value.password).then(response =>
+      this.appService.userRegister(this.registrationForm.value.email, this.registrationForm.value.password).then(response =>
         console.log('successful')
       ).catch(err => {
         this.registrationForm.controls['email'].setErrors(null);

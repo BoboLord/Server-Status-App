@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       this.loginFormSubmitted = true;
-      this.appService.login(this.loginForm.value.email, this.loginForm.value.password).then(response =>{
+      this.appService.userLogin(this.loginForm.value.email, this.loginForm.value.password).then(response =>{
         console.log('successful');
         this.router.navigate(['/']);
       }

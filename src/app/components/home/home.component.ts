@@ -13,4 +13,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.appService.tempPing();
   }
+
+  logout() {
+    this.appService.userLogout();
+    this.router.navigate(['/login']);
+  }
 }

@@ -68,17 +68,24 @@ export class AppService {
       { observe: 'response' }
     ).toPromise();
   }
-  login(email, password) {
+  userLogin(email, password) {
     return this.httpClient.post<string>(
       this.configService.baseURL + '/user/login',
       { 'email': email, 'password': password },
       { observe: 'response' }
     ).toPromise();
   }
-  register(email, password) {
+  userRegister(email, password) {
     return this.httpClient.post<string>(
       this.configService.baseURL + '/user/register',
       { 'email': email, 'password': password },
+      { observe: 'response' }
+    ).toPromise();
+  }
+  userLogout() {
+    return this.httpClient.post<string>(
+      this.configService.baseURL + '/user/logout',
+      {},
       { observe: 'response' }
     ).toPromise();
   }
