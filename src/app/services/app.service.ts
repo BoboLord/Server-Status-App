@@ -11,6 +11,13 @@ export class AppService {
 
   constructor(private configService: ConfigService, private httpClient: HttpClient) { }
 
+  tempPing(): Promise<HttpResponse<String>> {
+    return this.httpClient.get<String>(
+      this.configService.baseURL + '/ping/abc',
+      { observe: 'response' }
+    ).toPromise();
+  }
+
   getToken(): Promise<HttpResponse<String>> {
     return this.httpClient.get<String>(
       this.configService.baseURL + '/gettoken',
