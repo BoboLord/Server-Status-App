@@ -15,41 +15,37 @@ import { switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class HttpXsrfInterceptor implements HttpInterceptor {
+  headerName = 'X-CSRF-TOKEN';
+
   constructor(private injector: Injector,
     private configService: ConfigService, private _cookieService: CookieService, private http: HttpClient) { }
 
   getToken(): Observable<HttpResponse<String>> {
-    const headers = new HttpHeaders().set(InterceptorSkipHeader, '');
-
     return this.http.get<HttpResponse<String>>(
       this.configService.baseURL + '/gettoken',
-      { headers }
+      {}
     );
   }
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  addHeaders(request: HttpRequest<any>) {
     request = request.clone({ withCredentials: true });
-    const headerName = 'X-CSRF-TOKEN';
+    if (this._cookieService.get('XSRF-TOKEN')) {
+      const token = this._cookieService.get('XSRF-TOKEN');
+      this.configService.csrfToken = token;
+      request = request.clone({ headers: request.headers.set(this.headerName, token) });
+    }
+    return request;
+  }
+
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (request.url !== this.configService.baseURL + '/gettoken' && !this._cookieService.get('XSRF-TOKEN')) {
       return this.getToken().pipe(switchMap(() => {
-        const http11: HttpClient = this.injector.get(HttpClient);
-        let clone: HttpRequest<any> = request.clone();
-        if (this._cookieService.get('XSRF-TOKEN')) {
-          console.log(this._cookieService.get('XSRF-TOKEN'));
-          const token = this._cookieService.get('XSRF-TOKEN');
-          this.configService.csrfToken = token;
-          clone = clone.clone({ headers: request.headers.set(headerName, token) });
-        }
+        const clone = this.addHeaders(request);
         return next.handle(clone);
       }));
     } else {
-      if (this._cookieService.get('XSRF-TOKEN')) {
-        console.log(this._cookieService.get('XSRF-TOKEN'));
-        const token = this._cookieService.get('XSRF-TOKEN');
-        this.configService.csrfToken = token;
-        request = request.clone({ headers: request.headers.set(headerName, token) });
-      }
-      return next.handle(request).do((event: HttpEvent<any>) => {
+      const clone = this.addHeaders(request);
+      return next.handle(clone).do((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
         }
       }, (error: any) => {
@@ -60,6 +56,5 @@ export class HttpXsrfInterceptor implements HttpInterceptor {
         }
       });
     }
-    // }
   }
 }
