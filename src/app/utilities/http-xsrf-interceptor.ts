@@ -18,22 +18,21 @@ export class HttpXsrfInterceptor implements HttpInterceptor {
   constructor(private injector: Injector,
     private configService: ConfigService, private _cookieService: CookieService, private http: HttpClient) { }
 
-  // getToken(): Promise<HttpResponse<String>> {
-  //   const headers = new HttpHeaders().set(InterceptorSkipHeader, '');
+  getToken(): Observable<HttpResponse<String>> {
+    const headers = new HttpHeaders().set(InterceptorSkipHeader, '');
 
-  //   return this.http.get<HttpResponse<String>>(
-  //     this.configService.baseURL + '/gettoken',
-  //     { headers }
-  //   ).toPromise();
-  // }
+    return this.http.get<HttpResponse<String>>(
+      this.configService.baseURL + '/gettoken',
+      { headers }
+    );
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     request = request.clone({ withCredentials: true });
     const headerName = 'X-CSRF-TOKEN';
     if (request.url !== this.configService.baseURL + '/gettoken' && !this._cookieService.get('XSRF-TOKEN')) {
-      const http11: HttpClient = this.injector.get(HttpClient);
-      console.log('2');
-      return http11.get(this.configService.baseURL + '/gettoken').pipe(switchMap(() => {
+      return this.getToken().pipe(switchMap(() => {
+        const http11: HttpClient = this.injector.get(HttpClient);
         let clone: HttpRequest<any> = request.clone();
         if (this._cookieService.get('XSRF-TOKEN')) {
           console.log(this._cookieService.get('XSRF-TOKEN'));
@@ -41,7 +40,6 @@ export class HttpXsrfInterceptor implements HttpInterceptor {
           this.configService.csrfToken = token;
           clone = clone.clone({ headers: request.headers.set(headerName, token) });
         }
-
         return next.handle(clone);
       }));
     } else {
@@ -51,17 +49,17 @@ export class HttpXsrfInterceptor implements HttpInterceptor {
         this.configService.csrfToken = token;
         request = request.clone({ headers: request.headers.set(headerName, token) });
       }
-          return next.handle(request).do((event: HttpEvent<any>) => {
-            if (event instanceof HttpResponse) {
-            }
-          }, (error: any) => {
-            if (error instanceof HttpErrorResponse) {
-              if (error.status === 401) {
-                // authService.logout();
-              }
-            }
-          });
+      return next.handle(request).do((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
         }
-      // }
+      }, (error: any) => {
+        if (error instanceof HttpErrorResponse) {
+          if (error.status === 401) {
+            // authService.logout();
+          }
+        }
+      });
+    }
+    // }
   }
 }
