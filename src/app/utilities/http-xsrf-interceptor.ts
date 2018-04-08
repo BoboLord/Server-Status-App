@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import {
   HttpEvent, HttpInterceptor, HttpClient, HttpHeaders,
   HttpHandler, HttpErrorResponse, HttpRequest, HttpResponse
@@ -11,49 +11,57 @@ export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 
 import { ConfigService } from './../services/config.service';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class HttpXsrfInterceptor implements HttpInterceptor {
-  constructor(private configService: ConfigService, private _cookieService: CookieService, private http: HttpClient) { }
+  constructor(private injector: Injector,
+    private configService: ConfigService, private _cookieService: CookieService, private http: HttpClient) { }
 
-  getToken(): Promise<HttpResponse<String>> {
-    const headers = new HttpHeaders().set(InterceptorSkipHeader, '');
+  // getToken(): Promise<HttpResponse<String>> {
+  //   const headers = new HttpHeaders().set(InterceptorSkipHeader, '');
 
-    return this.http.get<HttpResponse<String>>(
-      this.configService.baseURL + '/gettoken',
-      { headers }
-    ).toPromise();
-  }
+  //   return this.http.get<HttpResponse<String>>(
+  //     this.configService.baseURL + '/gettoken',
+  //     { headers }
+  //   ).toPromise();
+  // }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     request = request.clone({ withCredentials: true });
     const headerName = 'X-CSRF-TOKEN';
-    if (this._cookieService.get('XSRF-TOKEN')) {
-      const token = this._cookieService.get('XSRF-TOKEN');
-      this.configService.csrfToken = token;
-      if (token !== null && !request.headers.has(headerName)) {
-        request = request.clone({ headers: request.headers.set(headerName, token) });
-      } else {
-        console.log('gg');
-      }
-    } else {
-      if (request.headers.has(InterceptorSkipHeader)) {
-        console.log('awd');
-        const headers = request.headers.delete(InterceptorSkipHeader);
-        return next.handle(request);
-      }
-      this.getToken();
-
-    }
-    return next.handle(request).do((event: HttpEvent<any>) => {
-      if (event instanceof HttpResponse) {
-      }
-    }, (error: any) => {
-      if (error instanceof HttpErrorResponse) {
-        if (error.status === 401) {
-          // authService.logout();
+    if (request.url !== this.configService.baseURL + '/gettoken' && !this._cookieService.get('XSRF-TOKEN')) {
+      const http11: HttpClient = this.injector.get(HttpClient);
+      console.log('2');
+      return http11.get(this.configService.baseURL + '/gettoken').pipe(switchMap(() => {
+        let clone: HttpRequest<any> = request.clone();
+        if (this._cookieService.get('XSRF-TOKEN')) {
+          console.log(this._cookieService.get('XSRF-TOKEN'));
+          const token = this._cookieService.get('XSRF-TOKEN');
+          this.configService.csrfToken = token;
+          clone = clone.clone({ headers: request.headers.set(headerName, token) });
         }
+
+        return next.handle(clone);
+      }));
+    } else {
+      if (this._cookieService.get('XSRF-TOKEN')) {
+        console.log(this._cookieService.get('XSRF-TOKEN'));
+        const token = this._cookieService.get('XSRF-TOKEN');
+        this.configService.csrfToken = token;
+        request = request.clone({ headers: request.headers.set(headerName, token) });
       }
-    });
+          return next.handle(request).do((event: HttpEvent<any>) => {
+            if (event instanceof HttpResponse) {
+            }
+          }, (error: any) => {
+            if (error instanceof HttpErrorResponse) {
+              if (error.status === 401) {
+                // authService.logout();
+              }
+            }
+          });
+        }
+      // }
   }
 }
