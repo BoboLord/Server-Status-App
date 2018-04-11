@@ -10,5 +10,12 @@ import { ConfigService } from './../../services/config.service';
 export class HomeComponent implements OnInit {
   constructor(public configService: ConfigService, public appService: AppService, private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.appService.tempPing();
+  }
+
+  logout() {
+    this.appService.userLogout();
+    this.router.navigate(['/login']);
+  }
 }
