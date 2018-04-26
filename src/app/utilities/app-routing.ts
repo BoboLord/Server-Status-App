@@ -7,11 +7,13 @@ import { PageNotFoundComponent } from '../components/page-not-found/page-not-fou
 import { LoginComponent } from '../components/login/login.component';
 import { ForgotPasswordComponent } from '../components/forgot-password/forgot-password.component';
 import { RegistrationComponent } from '../components/registration/registration.component';
+import { MovieStatusComponent } from '../components/movie-status/movie-status.component';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'server-status', component: StoredServerStatusComponent },
-  { path: 'ping-tool', component: PingToolComponent },
+  { path: 'serverstatus', component: StoredServerStatusComponent },
+  { path: 'moviestatus', component: MovieStatusComponent },
+  { path: 'pingtool', component: PingToolComponent },
   { path: 'login', component: LoginComponent },
   { path: 'forgot', component: ForgotPasswordComponent },
   { path: 'register', component: RegistrationComponent },

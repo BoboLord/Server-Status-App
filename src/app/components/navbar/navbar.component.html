@@ -10,10 +10,13 @@
   <div class="collapse navbar-collapse" data-toggle="collapse" data-target=".navbar-collapse.show" id="collapsibleNavbar">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item cstm-item" [routerLinkActive]="['cstm-active']" [routerLinkActiveOptions]="{ exact: true }">
-        <a class="nav-link" routerLink="/server-status">Server Status</a>
+        <a class="nav-link" routerLink="/moviestatus">Movie Status</a>
+      </li>
+      <li class="nav-item cstm-item" [routerLinkActive]="['cstm-active']" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link" routerLink="/serverstatus">Server Status</a>
       </li>
       <li class="nav-item cstm-item" [routerLinkActive]="['cstm-active']">
-        <a class="nav-link" routerLink="/ping-tool">Ping Tool</a>
+        <a class="nav-link" routerLink="/pingtool">Ping Tool</a>
       </li>
     </ul>
     <ul class="navbar-nav">

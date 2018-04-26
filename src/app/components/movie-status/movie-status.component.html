@@ -1,0 +1,13 @@
+<div>
+  <h1>
+    Tickets for infinity war at Imax large screen are currently:
+  </h1>
+  <h1 *ngIf="currentStatus===false" style="color: red;padding-left: 20px;">
+    Not available
+  </h1>
+  <h1 *ngIf="currentStatus===true" style="color: green;padding-left: 20px;">
+    Available
+  </h1>
+  <button (click)="notifyMe()">Notify me!</button>
+
+</div>

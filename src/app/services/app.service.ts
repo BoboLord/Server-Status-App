@@ -5,6 +5,7 @@ import { ConfigService } from './../services/config.service';
 import { Server } from '../models/server';
 import { StoredServerStatus } from '../models/stored-server-status';
 import { Cluster } from '../models/cluster';
+import { MovieStatus } from '../models/movie-status';
 
 @Injectable()
 export class AppService {
@@ -68,6 +69,13 @@ export class AppService {
       { observe: 'response' }
     ).toPromise();
   }
+
+  checkValue(): Promise<MovieStatus> {
+    return this.httpClient.get<MovieStatus>(
+      this.configService.baseURL + '/getmoviestatus', {}
+    ).toPromise();
+  }
+
   userLogin(email, password) {
     return this.httpClient.post<string>(
       this.configService.baseURL + '/user/login',
