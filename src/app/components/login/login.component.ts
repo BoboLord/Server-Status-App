@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/']);
       }
       ).catch(err => {
-        console.log(err);
         this.loginForm.controls['email'].setErrors(null);
         this.loginForm.controls['password'].setErrors(null);
         if (err.status === 401 || 400) {

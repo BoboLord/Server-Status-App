@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { AppService } from '../../services/app.service';
 import { MovieStatus } from '../../models/movie-status';
+import { HttpErrorResponse } from '@angular/common/http';
+import 'rxjs/add/operator/mergeMap';
 
 @Component({
   selector: 'app-movie-status',
@@ -9,10 +11,11 @@ import { MovieStatus } from '../../models/movie-status';
 })
 export class MovieStatusComponent implements OnInit {
   title = 'app';
-  currentStatus = false;
+  currentStatus: boolean;
   timer: any;
   constructor(public appService: AppService) { }
   ngOnInit() {
+    this.currentStatus = null;
     const self = this;
     self.loop();
     this.timer = setInterval(() => {
@@ -22,11 +25,10 @@ export class MovieStatusComponent implements OnInit {
 
   loop() {
     const self = this;
-    this.getData().then(value => {
+    this.getData().subscribe(value => {
       self.currentStatus = value.status;
       if (self.currentStatus === true) {
         clearInterval(this.timer);
-        console.log(self.currentStatus);
         this.notifyMe();
         const r = confirm('Tickets are open for Imax large screen!');
         if (r === true) {
@@ -34,15 +36,12 @@ export class MovieStatusComponent implements OnInit {
         } else {
           alert('Tickets are open for Imax large screen!');
         }
-      } else {
-        console.log(self.currentStatus);
       }
     });
   }
 
   getData() {
-    return this.appService.checkValue().then(value => {
-      console.log(value);
+    return this.appService.checkValue().map(value => {
       return value;
     });
   }

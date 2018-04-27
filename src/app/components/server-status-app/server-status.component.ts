@@ -20,13 +20,13 @@ export class StoredServerStatusComponent implements OnInit {
   interval1Cleared = false;
   interval2Cleared = false;
   infoLoaded = false;
-  constructor(private appService: AppService, private router: Router) {}
+  constructor(private appService: AppService, private router: Router) { }
 
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.infoLoaded = false;
-        this.appService.getListOfClusters().then(response1 => {
+        this.appService.getListOfClusters().subscribe(response1 => {
           this.clusters = response1.body;
           this.appService.getListOfServers().then(response2 => {
             this.servers = response2.body;
@@ -35,7 +35,7 @@ export class StoredServerStatusComponent implements OnInit {
         });
       }
     });
-    this.appService.getListOfClusters().then(response1 => {
+    this.appService.getListOfClusters().subscribe(response1 => {
       this.clusters = response1.body;
       this.appService.getListOfServers().then(response2 => {
         this.servers = response2.body;

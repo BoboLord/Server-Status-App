@@ -1,4 +1,6 @@
-<div>
+<app-loader *ngIf="currentStatus===null">
+</app-loader>
+<div *ngIf="currentStatus!==null">
   <h1>
     Tickets for infinity war at Imax large screen are currently:
   </h1>
@@ -9,5 +11,4 @@
     Available
   </h1>
   <button (click)="notifyMe()">Notify me!</button>
-
 </div>

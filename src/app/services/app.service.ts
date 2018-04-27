@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 // import { HttpService } from './http.service';
 import { ConfigService } from './../services/config.service';
 import { Server } from '../models/server';
 import { StoredServerStatus } from '../models/stored-server-status';
 import { Cluster } from '../models/cluster';
 import { MovieStatus } from '../models/movie-status';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class AppService {
@@ -25,11 +27,13 @@ export class AppService {
       { observe: 'response' }
     ).toPromise();
   }
-  getListOfClusters(): Promise<HttpResponse<Cluster[]>> {
+  getListOfClusters(): Observable<HttpResponse<Cluster[]>> {
     return this.httpClient.get<Cluster[]>(
       this.configService.baseURL + '/ping/clusterlist',
       { observe: 'response' }
-    ).toPromise();
+    ).catch((err: HttpErrorResponse) => {
+      return Observable.throw(err.error);
+    });
   }
 
   getListOfServers(): Promise<HttpResponse<Server[]>> {
@@ -54,12 +58,12 @@ export class AppService {
     ).toPromise();
   }
 
-  getStoredServerStatus(serverID): Promise<HttpResponse<StoredServerStatus[]>> {
+  getStoredServerStatus(serverID): Observable<HttpResponse<StoredServerStatus[]>> {
     return this.httpClient.get<StoredServerStatus[]>(
       this.configService.baseURL + '/ping/storedserverstatus/' +
       serverID,
       { observe: 'response' }
-    ).toPromise();
+    );
   }
 
   getStoredServerListStatus(serverList): Promise<HttpResponse<StoredServerStatus[]>> {
@@ -70,10 +74,13 @@ export class AppService {
     ).toPromise();
   }
 
-  checkValue(): Promise<MovieStatus> {
+  checkValue(): Observable<MovieStatus> {
     return this.httpClient.get<MovieStatus>(
       this.configService.baseURL + '/getmoviestatus', {}
-    ).toPromise();
+    ).catch((err: HttpErrorResponse) => {
+      console.error('An error occurred:', err.error);
+      return Observable.throw(err.error);
+    });
   }
 
   userLogin(email, password) {
@@ -81,7 +88,9 @@ export class AppService {
       this.configService.baseURL + '/user/login',
       { 'email': email, 'password': password },
       { observe: 'response' }
-    ).toPromise();
+    ).toPromise().catch((err: HttpErrorResponse) => {
+      console.error('An error occurred:', err.error);
+    });
   }
   userRegister(email, password) {
     return this.httpClient.post<string>(

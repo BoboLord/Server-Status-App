@@ -28,9 +28,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { appRoutes } from './utilities/app-routing';
 import { ValidationTool } from './utilities/validation-tool';
 import { MovieStatusComponent } from './components/movie-status/movie-status.component';
+import { LoaderComponent } from './components/utility-components/loader/loader.component';
 
 @NgModule({
-  declarations: [AppComponent, MovieStatusComponent, HomeComponent, NavbarComponent, StoredServerStatusComponent,
+  declarations: [AppComponent, MovieStatusComponent, HomeComponent, NavbarComponent, StoredServerStatusComponent, LoaderComponent,
     PingToolComponent, LoginComponent,
     ForgotPasswordComponent, RegistrationComponent, PageNotFoundComponent],
   imports: [BrowserModule, HttpClientModule, InlineSVGModule, ReactiveFormsModule, FormsModule,
