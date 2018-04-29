@@ -15,12 +15,13 @@ export class MovieStatusComponent implements OnInit {
   timer: any;
   constructor(public appService: AppService) { }
   ngOnInit() {
+    this.appService.getMovieList().subscribe();
     this.currentStatus = null;
     const self = this;
     self.loop();
     this.timer = setInterval(() => {
       self.loop();
-    }, 5000);
+    }, 50000);
   }
 
   loop() {
@@ -41,7 +42,7 @@ export class MovieStatusComponent implements OnInit {
   }
 
   getData() {
-    return this.appService.checkValue().map(value => {
+    return this.appService.checkMovieStatus().map(value => {
       return value;
     });
   }

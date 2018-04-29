@@ -74,9 +74,17 @@ export class AppService {
     ).toPromise();
   }
 
-  checkValue(): Observable<MovieStatus> {
+  checkMovieStatus(): Observable<MovieStatus> {
     return this.httpClient.get<MovieStatus>(
       this.configService.baseURL + '/getmoviestatus', {}
+    ).catch((err: HttpErrorResponse) => {
+      console.error('An error occurred:', err.error);
+      return Observable.throw(err.error);
+    });
+  }
+  getMovieList(): Observable<MovieStatus> {
+    return this.httpClient.get<MovieStatus>(
+      this.configService.baseURL + '/getmovielist', {}
     ).catch((err: HttpErrorResponse) => {
       console.error('An error occurred:', err.error);
       return Observable.throw(err.error);
