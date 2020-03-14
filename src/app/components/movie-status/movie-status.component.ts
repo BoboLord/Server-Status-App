@@ -1,8 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { AppService } from '../../services/app.service';
-import { MovieStatus } from '../../models/movie-status';
-import { HttpErrorResponse } from '@angular/common/http';
-import 'rxjs/add/operator/mergeMap';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-movie-status',
@@ -42,9 +40,9 @@ export class MovieStatusComponent implements OnInit {
   }
 
   getData() {
-    return this.appService.checkMovieStatus().map(value => {
+    return this.appService.checkMovieStatus().pipe(map(value => {
       return value;
-    });
+    }));
   }
 
   notifyMe() {

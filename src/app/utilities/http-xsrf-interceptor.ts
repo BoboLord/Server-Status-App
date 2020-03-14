@@ -3,15 +3,14 @@ import {
   HttpEvent, HttpInterceptor, HttpClient, HttpHeaders,
   HttpHandler, HttpErrorResponse, HttpRequest, HttpResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
 import { CookieService } from 'ngx-cookie';
 import { AppService } from '../services/app.service';
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
-import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 
 import { ConfigService } from './../services/config.service';
 import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class HttpXsrfInterceptor implements HttpInterceptor {
@@ -45,7 +44,7 @@ export class HttpXsrfInterceptor implements HttpInterceptor {
       }));
     } else {
       const clone = this.addHeaders(request);
-      return next.handle(clone).do((event: HttpEvent<any>) => {
+      return next.handle(clone).pipe(tap((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
         }
       }, (error: any) => {
@@ -54,7 +53,7 @@ export class HttpXsrfInterceptor implements HttpInterceptor {
             // authService.logout();
           }
         }
-      });
+      }));
     }
   }
 }

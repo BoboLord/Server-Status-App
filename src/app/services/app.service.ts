@@ -6,8 +6,16 @@ import { Server } from '../models/server';
 import { StoredServerStatus } from '../models/stored-server-status';
 import { Cluster } from '../models/cluster';
 import { MovieStatus } from '../models/movie-status';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
+import { throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import {
+  catchError,
+  tap,
+  switchMap,
+  mergeMap,
+  concatMap,
+  exhaustMap
+} from 'rxjs/operators';
 
 @Injectable()
 export class AppService {
@@ -31,9 +39,9 @@ export class AppService {
     return this.httpClient.get<Cluster[]>(
       this.configService.baseURL + '/ping/clusterlist',
       { observe: 'response' }
-    ).catch((err: HttpErrorResponse) => {
-      return Observable.throw(err.error);
-    });
+      ).pipe(catchError((err: HttpErrorResponse) => {
+        return throwError(err.error);
+    }));
   }
 
   getListOfServers(): Promise<HttpResponse<Server[]>> {
@@ -77,18 +85,18 @@ export class AppService {
   checkMovieStatus(): Observable<MovieStatus> {
     return this.httpClient.get<MovieStatus>(
       this.configService.baseURL + '/getmoviestatus', {}
-    ).catch((err: HttpErrorResponse) => {
-      console.error('An error occurred:', err.error);
-      return Observable.throw(err.error);
-    });
+      ).pipe(catchError((err: HttpErrorResponse) => {
+        console.error('An error occurred:', err.error);
+      return throwError(err.error);
+    }));
   }
   getMovieList(): Observable<MovieStatus> {
     return this.httpClient.get<MovieStatus>(
       this.configService.baseURL + '/getmovielist', {}
-    ).catch((err: HttpErrorResponse) => {
+    ).pipe(catchError((err: HttpErrorResponse) => {
       console.error('An error occurred:', err.error);
-      return Observable.throw(err.error);
-    });
+      return throwError(err.error);
+    }));
   }
 
   userLogin(email, password) {
